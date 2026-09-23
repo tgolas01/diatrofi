@@ -1384,6 +1384,7 @@ const INGREDIENTS = [
   {id:'arabiki_pita',   name:'Αραβική πίτα χωρίς ζάχαρη', name_en:'Pita bread (no sugar)', cat:'bread', group:'bread_dry', pieceG:60, n100:[270, 55, 9, 1.5]},
   {id:'aladoti_pita',   name:'Αλάδωτη πίτα ολικής', name_en:'Whole-grain flatbread', cat:'bread', group:'bread_dry', pieceG:60, n100:[260, 50, 9, 2]},
   {id:'kritsini_imon',  name:'Κριτσίνι IMON', name_en:'IMON breadsticks', cat:'bread', n100:[420, 60, 12, 14]},
+  {id:'kritsini_polysporo', name:'Κριτσίνι πολύσπορο', name_en:'Multigrain breadsticks', cat:'bread', n100:[410, 62, 12, 11]},
 
   // GRAINS / STARCHES
   {id:'kinoa',          name:'Κινόα βρασμένη', name_en:'Quinoa (cooked)', cat:'grain', group:'starch_lunch', n100:[120, 21, 4, 1.9]},
@@ -1443,15 +1444,15 @@ const INGREDIENTS = [
   {id:'egg_white',      name:'Ασπράδι αυγού', name_en:'Egg white', cat:'egg', n100:[52, 0.7, 11, 0.2]},
 
   // NUTS
-  {id:'almonds',        name:'Αμύγδαλα ωμά ανάλατα', name_en:'Almonds (raw, unsalted)', cat:'nuts', group:'nuts_group', n100:[579, 22, 21, 50], perPiece:1.2},
-  {id:'walnuts',        name:'Καρύδια', name_en:'Walnuts', cat:'nuts', group:'nuts_group', n100:[654, 14, 15, 65], perPiece:5},
-  {id:'pistachios',     name:'Φυστίκια Αιγίνης ανάλατα', name_en:'Aegina pistachios (unsalted)', cat:'nuts', group:'nuts_group', n100:[562, 28, 20, 45], perPiece:0.7},
-  {id:'hazelnuts',      name:'Φουντούκια ανάλατα', name_en:'Hazelnuts (unsalted)', cat:'nuts', group:'nuts_group', n100:[628, 17, 15, 61], perPiece:1},
-  {id:'cashews',        name:'Κάσιους ανάλατα', name_en:'Cashews (unsalted)', cat:'nuts', group:'nuts_group', n100:[553, 30, 18, 44], perPiece:1.5},
+  {id:'almonds',        name:'Αμύγδαλα ωμά ανάλατα', name_en:'Almonds (raw, unsalted)', cat:'nuts', group:'nuts_group', n100:[579, 22, 21, 50], perPiece:1.2, countByPiece:true},
+  {id:'walnuts',        name:'Καρύδια', name_en:'Walnuts', cat:'nuts', group:'nuts_group', n100:[654, 14, 15, 65], perPiece:5, countByPiece:true},
+  {id:'pistachios',     name:'Φυστίκια Αιγίνης ανάλατα', name_en:'Aegina pistachios (unsalted)', cat:'nuts', group:'nuts_group', n100:[562, 28, 20, 45], perPiece:0.7, countByPiece:true},
+  {id:'hazelnuts',      name:'Φουντούκια ανάλατα', name_en:'Hazelnuts (unsalted)', cat:'nuts', group:'nuts_group', n100:[628, 17, 15, 61], perPiece:1, countByPiece:true},
+  {id:'cashews',        name:'Κάσιους ανάλατα', name_en:'Cashews (unsalted)', cat:'nuts', group:'nuts_group', n100:[553, 30, 18, 44], perPiece:1.5, countByPiece:true},
 
   // DRIED FRUITS
-  {id:'prunes',         name:'Ξηρά δαμάσκηνα βιο', name_en:'Dried prunes (organic)', cat:'dried', n100:[240, 64, 2.2, 0.4], perPiece:7},
-  {id:'figs_dry',       name:'Ξηρά σύκα χωρίς ζάχαρη', name_en:'Dried figs (no sugar)', cat:'dried', n100:[250, 64, 3.3, 0.9], perPiece:15},
+  {id:'prunes',         name:'Ξηρά δαμάσκηνα βιο', name_en:'Dried prunes (organic)', cat:'dried', n100:[240, 64, 2.2, 0.4], perPiece:7, countByPiece:true},
+  {id:'figs_dry',       name:'Ξηρά σύκα χωρίς ζάχαρη', name_en:'Dried figs (no sugar)', cat:'dried', n100:[250, 64, 3.3, 0.9], perPiece:15, countByPiece:true},
   {id:'raisins',        name:'Σταφίδες μαύρες', name_en:'Black raisins', cat:'dried', n100:[299, 79, 3, 0.5]},
 
   // OILS / SPREADS
@@ -1476,6 +1477,12 @@ const INGREDIENTS = [
   {id:'imon_tahini',    name:'Μπισκότο IMON Ταχίνι', name_en:'IMON Tahini biscuit', cat:'imon', perPiece:65, countByPiece:true, n100:[475, 45, 12, 26]},
   {id:'imon_eyzhn',     name:'Μπισκότο IMON ΕΥΖΗΝ', name_en:'IMON EYZHN biscuit', cat:'imon', perPiece:40, countByPiece:true, n100:[460, 48, 12, 22]},
   {id:'imon_cocoa',     name:'Μπισκότο IMON Κακάο', name_en:'IMON Cocoa biscuit', cat:'imon', perPiece:30, countByPiece:true, n100:[470, 50, 11, 24]},
+  {id:'nectarine',     name:'Νεκταρίνι', name_en:'Nectarine', cat:'fruit', group:'fruit_season', n100:[44, 11, 1.1, 0.3], perPiece:140},
+  {id:'jam_no_sugar',  name:'Μαρμελάδα χωρίς ζάχαρη', name_en:'Jam (no sugar)', cat:'spice', n100:[130, 30, 0.4, 0.1]},
+  {id:'rice_brown',    name:'Ρύζι καστανό βρασμένο', name_en:'Brown rice (cooked)', cat:'grain', group:'starch_lunch', n100:[112, 23, 2.6, 0.9]},
+  {id:'rice_basmati',  name:'Ρύζι μπασμάτι βρασμένο', name_en:'Basmati rice (cooked)', cat:'grain', group:'starch_lunch', n100:[121, 25, 3.5, 0.4]},
+  {id:'imon_vanilla',  name:'Μπισκότο IMON Βανίλιας', name_en:'IMON Vanilla biscuit', cat:'imon', perPiece:25, countByPiece:true, n100:[460, 50, 10, 22]},
+  {id:'imon_baby',     name:'Μπισκότο IMON Baby', name_en:'IMON Baby biscuit', cat:'imon', group:'imon_maman_group', perPiece:25, countByPiece:true, n100:[460, 50, 10, 22]},
   {id:'imon_sfakianh',  name:'Σφακιανή πίτα IMON', name_en:'IMON Sfakian pie', cat:'imon', perPiece:120, n100:[280, 35, 9, 11]},
 
   // TEAS
@@ -1487,10 +1494,11 @@ const INGREDIENTS = [
   {id:'milk_light',    name:'Γάλα ελαφρύ 1.5%', name_en:'Milk (light 1.5%)', cat:'dairy', unitBase:'ml', n100:[46, 5, 3.4, 1.5]},
   {id:'protein_biologos', name:'Φυτική πρωτεΐνη Βιολόγος', name_en:'Vegetable protein "Biologos"', cat:'imon', n100:[380, 5, 60, 8], perPiece:30, pack:{g:600, unit:'κουτί', unitEn:'box', plural:'κουτιά', pluralEn:'boxes'}},
   {id:'peach',         name:'Ροδάκινο', name_en:'Peach', cat:'fruit', group:'fruit_season', n100:[39, 10, 0.9, 0.3], perPiece:150},
-  {id:'apricot',       name:'Βερίκοκα', name_en:'Apricots', cat:'fruit', group:'fruit_season', n100:[48, 11, 1.4, 0.4], perPiece:35},
+  {id:'apricot',       name:'Βερίκοκα', name_en:'Apricots', cat:'fruit', group:'fruit_season', n100:[48, 11, 1.4, 0.4], perPiece:35, countByPiece:true},
   {id:'orange_juice',  name:'Φρέσκος χυμός πορτοκάλι', name_en:'Fresh orange juice', cat:'fruit', unitBase:'ml', n100:[45, 10.4, 0.7, 0.2]},
   {id:'honey',         name:'Μέλι', name_en:'Honey', cat:'spice', n100:[304, 82, 0.3, 0]},
   {id:'potato_baked',  name:'Πατάτα ψητή', name_en:'Potato (baked)', cat:'grain', group:'starch_lunch', n100:[93, 21, 2.5, 0.1], perPiece:190},
+  {id:'potato_boiled', name:'Πατάτα βραστή', name_en:'Potato (boiled)', cat:'grain', group:'starch_lunch', n100:[80, 18, 1.9, 0.1], perPiece:190},
   {id:'squid',         name:'Καλαμάρι ψητό', name_en:'Squid (grilled)', cat:'fish', group:'protein_main', n100:[92, 3, 15.6, 1.4]},
   {id:'cuttlefish',    name:'Σουπιές ψητές', name_en:'Cuttlefish (grilled)', cat:'fish', group:'protein_main', n100:[79, 0.8, 16, 0.7]},
   {id:'octopus',       name:'Χταπόδι ψητό', name_en:'Octopus (grilled)', cat:'fish', group:'protein_main', n100:[82, 2, 15, 1]},
@@ -1582,352 +1590,227 @@ const M = (ing, g, unit, piece, alts) => ({ing, g, unit, piece, alts});
 
 let MENUS = {
   'Α': {
-    label: 'Μενού Α',
-    color: '#DCE6F1',
-    breakfast: {
-      name: 'Smoothie Bowl',
-      nameEn: 'Smoothie Bowl',
-      time: '07:00',
-      items: [
-        M('ptisani', 20, '2 κ.σ.'),
-        M('kefir', 200, '1 φλ. τσαγιού'),
-        M('imon_matsa', 10, '½ φακελάκι', 0.5),
-        M('banana', 60, '60 γρ'),
-        M('strawberry', 50, '50 γρ', null, [{ing:'kiwi', g:50}]),
-        M('agrelaio', 2, '7 ψεκασμοί'),
-        M('ginger', 5, '1 κ.γ.'),
-        M('cinnamon', 5, '1 κ.γ.'),
-      ],
-    },
-    morning: {
-      name: 'Τοστ',
-      nameEn: 'Toast',
-      time: '09:30',
-      items: [
-        M('bread_home', 60, '60 γρ'),
-        M('cheese_graviera', 30, '30 γρ'),
-        M('marouli', 20, 'λίγο'),
-      ],
-    },
-    lunch: {
-      name: 'Δημητριακό + Πρωτεΐνη',
-      nameEn: 'Grain + Protein',
-      time: '12:00',
-      items: [
-        M('kinoa', 145, '145 γρ βρασμένο'),
-        M('turkey', 230, '230 γρ'),
-        M('salad_seasonal', 200, '200 g'),
-        M('olive_oil', 30, '2 κ.σ.'),
-      ],
-    },
-    afternoon: {
-      name: 'Απογευματινό IMON',
-      nameEn: 'IMON afternoon',
-      time: '14:30',
-      items: [
-        M('imon_maman', 38, '1½ τεμ.', 1.5),
-        M('tea_other', 0, '1 φλ. τσαγιού'),
-      ],
-    },
-    dinner: {
-      name: 'Ντάκος',
-      nameEn: 'Dakos (Cretan rusk)',
-      time: '17:00',
-      items: [
-        M('paximadi_krithino', 60, '60 γρ'),
-        M('cheese_anthotyro', 60, '60 γρ'),
-        M('tomatini', 75, '5 ντοματίνια'),
-        M('agouri', 50, '50 g'),
-        M('olive_oil', 15, '1 κ.σ.'),
-      ],
-      altDinner: {
-        name: 'Σφακιανή πίτα IMON',
-        items: [
-          M('imon_sfakianh', 120, '1 τεμ.'),
-          M('olive_oil', 15, '1 κ.σ.'),
-        ],
-      },
-    },
-    bedtime: {
-      name: 'Προ ύπνου',
-      nameEn: 'Bedtime',
-      time: '19:30',
-      items: [
-        M('cheese_cottage', 30, '2 κ.σ.'),
-        M('almonds', 12, '10 τεμ.', 10),
-        M('prunes', 14, '2 τεμ.', 2),
-      ],
-    },
+    label: 'Μενού Α', color: '#DCE6F1',
+    breakfast: { name:'Smoothie Bowl', nameEn:'Smoothie Bowl', time:'07:00', items:[
+      M('ptisani', 20, '2 κ.σ.'),
+      M('kefir', 200, '1 φλ. τσαγιού'),
+      M('imon_matsa', 10, '½ φακελάκι', 0.5),
+      M('banana', 60, '60 γρ', null, [{ing:'watermelon', g:60}]),
+      M('kiwi', 50, '50 γρ', null, [{ing:'nectarine', g:50}]),
+      M('agrelaio', 2, '7 ψεκασμοί'),
+      M('ginger', 5, '1 κ.γ.'),
+      M('cinnamon', 3, '1 κ.γ.'),
+    ]},
+    morning: { name:'Τοστ με λογάδι', nameEn:'Toast with logadi', time:'09:30', items:[
+      M('bread_home', 60, '60 γρ'),
+      M('cheese_logadi', 38, '1,5 φ. λογάδι'),
+      M('marouli', 20, 'λίγο μαρούλι', null, [{ing:'piperies', g:50}]),
+    ]},
+    lunch: { name:'Δημητριακό + Πρωτεΐνη', nameEn:'Grain + Protein', time:'12:00', items:[
+      M('kinoa', 145, '145 γρ βρασμένο', null, [
+        {ing:'bligouri', g:145}, {ing:'glykopatata', g:145}, {ing:'rice_brown', g:145},
+      ]),
+      M('turkey', 230, '230 γρ', null, [
+        {ing:'fish_lavraki', g:230}, {ing:'fish_tsipoura', g:230},
+      ]),
+      M('salad_seasonal', 200, 'σαλάτα εποχής'),
+      M('olive_oil', 30, '2 κ.σ.'),
+    ]},
+    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
+      M('imon_vanilla', 25, '1 τεμ. βανίλιας', 1),
+      M('tea_other', 0, '1 φλ. τσαγιού'),
+    ]},
+    dinner: { name:'Ντάκος', nameEn:'Dakos', time:'17:00', items:[
+      M('paximadi_krithino', 60, '60 γρ'),
+      M('cheese_mozz_light', 80, '80 γρ'),
+      M('tomatini', 75, '5 ντοματίνια', 5),
+      M('agouri', 60, 'αγγούρι'),
+      M('olive_oil', 15, '1 κ.σ.'),
+    ], altDinner:{ name:'Σφακιανή πίτα IMON', nameEn:'IMON Sfakian pie', items:[
+      M('imon_sfakianh', 120, '1 τεμ.', 1),
+      M('olive_oil', 15, '1 κ.σ.'),
+    ]}},
+    bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
+      M('cheese_cottage', 30, '2 κ.σ. cottage'),
+      M('almonds', 6, '5 τεμ.', 5),
+      M('prunes', 14, '2 τεμ.', 2, [{ing:'apricot', g:70}]),
+    ]},
   },
-  'Γ': {
-    label: 'Μενού Γ',
-    color: '#EAF3DD',
-    breakfast: {
-      name: 'Αυγά / Ομελέτα',
-      nameEn: 'Eggs / Omelette',
-      time: '07:00',
-      items: [
-        M('egg', 120, '2 τεμ.', 2),
-        M('cheese_graviera', 30, '30 γρ'),
-        M('paximadia_sikalis', 40, '40 γρ'),
-        M('piperies', 75, '50-100 g'),
-      ],
-    },
-    morning: {
-      name: 'Φρούτο & Κριτσίνι',
-      nameEn: 'Fruit & Breadsticks',
-      time: '09:30',
-      items: [
-        M('apple', 150, '150 γρ φρούτο'),
-        M('kritsini_imon', 30, '30 γρ'),
-        M('cheese_emmental_l', 20, '1 φέτα τοστ'),
-      ],
-    },
-    lunch: {
-      name: 'Κρέας / Ψάρι',
-      nameEn: 'Meat / Fish',
-      time: '12:00',
-      items: [
-        M('chicken', 230, '230 γρ'),
-        M('salad_seasonal', 200, '200 g'),
-        M('paximadi_zeas', 60, '60 γρ'),
-        M('olive_oil', 30, '2 κ.σ.'),
-      ],
-    },
-    afternoon: {
-      name: 'Απογευματινό IMON',
-      nameEn: 'IMON afternoon',
-      time: '14:30',
-      items: [
-        M('imon_cocoa', 30, '1 τεμ.', 1),
-        M('tea_other', 0, '1 φλ. τσαγιού'),
-      ],
-    },
-    dinner: {
-      name: 'Σαλάτα + Τυρί',
-      nameEn: 'Salad + Cheese',
-      time: '17:00',
-      items: [
-        M('broccoli', 150, 'βραστά λαχανικά', null, [{ing:'salad_seasonal', g:200}]),
-        M('cheese_anthotyro', 60, '60 γρ'),
-        M('olive_oil', 30, '2 κ.σ.'),
-        M('kritsini_imon', 16, '4 τεμ.', 4),
-      ],
-    },
-    bedtime: {
-      name: 'Προ ύπνου',
-      nameEn: 'Bedtime',
-      time: '19:30',
-      items: [
-        M('cheese_cottage', 30, '2 κ.σ.'),
-        M('almonds', 12, '10 τεμ.', 10),
-        M('prunes', 14, '2 τεμ.', 2),
-      ],
-    },
-  },
+
   'Β+': {
-    label: 'Μενού Β+',
-    color: '#FCE4D6',
-    breakfast: {
-      name: 'Κουακερόπιτα',
-      nameEn: 'Spelt pancake',
-      time: '07:00',
-      items: [
-        M('egg_white', 60, '2 ασπράδια'),
-        M('ptisani', 20, '2 κ.σ.'),
-        M('cinnamon', 5, '1 κ.γ.'),
-        M('kiwi', 100, '100 γρ'),
-      ],
-    },
-    morning: {
-      name: 'Τοστ',
-      nameEn: 'Toast',
-      time: '09:30',
-      items: [
-        M('bread_home', 60, '60 γρ'),
-        M('cheese_emmental_l', 40, '2 φέτες τοστ'),
-        M('piperies', 75, 'λίγες (50-100 g)'),
-      ],
-    },
-    lunch: {
-      name: 'Όσπρια',
-      nameEn: 'Legumes',
-      time: '12:00',
-      items: [
-        M('ospria_fakes', 190, '190 γρ βρασμένα'),
-        M('cheese_anthotyro', 120, '120 γρ'),
-        M('salad_seasonal', 200, '1 μεγάλο μπολ (200 g)'),
-        M('olive_oil', 30, '2 κ.σ.'),
-      ],
-    },
-    afternoon: {
-      name: 'Απογευματινό IMON',
-      nameEn: 'IMON afternoon',
-      time: '14:30',
-      items: [
-        M('imon_tahini', 65, '1 τεμ.', 1),
-        M('yogurt_light', 100, '½ κεσεδάκι'),
-        M('tea_other', 0, '1 φλ. τσαγιού'),
-      ],
-    },
-    dinner: {
-      name: '«Πίτα» Β+',
-      nameEn: '"Pita" B+',
-      time: '17:00',
-      items: [
-        M('arabiki_pita', 60, '60 γρ'),
-        M('cheese_mozz', 50, '50 γρ'),
-        M('manitaria', 60, 'μανιτάρια'),
-        M('piperies', 75, '50-100 g'),
-        M('pesto', 15, '1 κ.σ.'),
-      ],
-    },
-    bedtime: {
-      name: 'Προ ύπνου',
-      nameEn: 'Bedtime',
-      time: '19:30',
-      items: [
-        M('cheese_cottage', 30, '2 κ.σ.'),
-        M('walnuts', 40, '8 τεμ.', 8),
-        M('prunes', 14, '2 τεμ.', 2),
-      ],
-    },
+    label: 'Μενού Β+', color: '#FCE4D6',
+    breakfast: { name:'Smoothie Bowl', nameEn:'Smoothie Bowl', time:'07:00', items:[
+      M('ptisani', 20, '2 κ.σ.'),
+      M('kefir', 200, '1 φλ. τσαγιού'),
+      M('imon_matsa', 10, '½ φακελάκι', 0.5),
+      M('banana', 60, '60 γρ', null, [{ing:'watermelon', g:60}]),
+      M('kiwi', 50, '50 γρ', null, [{ing:'nectarine', g:50}]),
+      M('agrelaio', 2, '7 ψεκασμοί'),
+      M('ginger', 5, '1 κ.γ.'),
+      M('cinnamon', 3, '1 κ.γ.'),
+    ]},
+    morning: { name:'Τοστ με λογάδι', nameEn:'Toast with logadi', time:'09:30', items:[
+      M('bread_home', 60, '60 γρ'),
+      M('cheese_logadi', 38, '1,5 φ. λογάδι'),
+      M('marouli', 20, 'λίγο μαρούλι', null, [{ing:'piperies', g:50}]),
+    ]},
+    lunch: { name:'Όσπρια & Κατίκι', nameEn:'Legumes & Katiki', time:'12:00', items:[
+      M('ospria_fakes', 200, '200 γρ βρασμένα', null, [
+        {ing:'ospria_revithia', g:200}, {ing:'ospria_fasolia', g:200},
+        {ing:'ospria_gigantes', g:200}, {ing:'ospria_mavromat', g:200},
+        {ing:'ospria_fava', g:200}, {ing:'ospria_koukia', g:200},
+      ]),
+      M('cheese_katiki', 100, '100 γρ κατίκι'),
+      M('salad_seasonal', 200, 'σαλάτα εποχής'),
+      M('olive_oil', 30, '2 κ.σ.'),
+    ]},
+    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
+      M('imon_karydas', 30, '1 τεμ. καρύδας', 1),
+      M('tea_other', 0, '1 φλ. τσαγιού'),
+    ]},
+    dinner: { name:'Σαλάτα με κοτόπουλο', nameEn:'Salad with chicken', time:'17:00', items:[
+      M('salad_seasonal', 200, 'ωμά ή βραστά λαχανικά'),
+      M('paximadi_sikaleos', 50, '50 γρ παξ. σικάλεως'),
+      M('olive_oil', 15, '1 κ.σ.'),
+      M('chicken', 140, '140 γρ φιλέτο ψητό'),
+    ]},
+    bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
+      M('cheese_cottage', 30, '2 κ.σ. cottage'),
+      M('walnuts', 25, '5 τεμ.', 5),
+      M('prunes', 14, '2 τεμ.', 2, [{ing:'apricot', g:70}]),
+    ]},
   },
+
   'Γ1+': {
-    label: 'Μενού Γ1+',
-    color: '#FFF2CC',
-    breakfast: {
-      name: 'Smoothie Bowl',
-      nameEn: 'Smoothie Bowl',
-      time: '07:00',
-      items: [
-        M('ptisani', 20, '2 κ.σ.'),
-        M('kefir', 200, '1 φλ. τσαγιού'),
-        M('imon_matsa', 10, '½ φακελάκι', 0.5),
-        M('banana', 60, '60 γρ'),
-        M('strawberry', 50, '50 γρ'),
-        M('agrelaio', 2, '7 ψεκασμοί'),
-        M('ginger', 5, '1 κ.γ.'),
-        M('cinnamon', 5, '1 κ.γ.'),
-      ],
-    },
-    morning: {
-      name: 'Τοστ',
-      nameEn: 'Toast',
-      time: '09:30',
-      items: [
-        M('bread_home', 60, '60 γρ'),
-        M('cheese_emmental_l', 40, '2 φέτες τοστ'),
-        M('piperies', 75, 'λίγες (50-100 g)'),
-      ],
-    },
-    lunch: {
-      name: 'Λαδερό + Κρέας',
-      nameEn: 'Veg stew + Meat',
-      time: '12:00',
-      items: [
-        M('fasolakia', 200, '200 γρ'),
-        M('chicken', 230, '230 γρ'),
-        M('olive_oil', 30, '2 κ.σ.'),
-      ],
-    },
-    afternoon: {
-      name: 'Απογευματινό IMON',
-      nameEn: 'IMON afternoon',
-      time: '14:30',
-      items: [
-        M('imon_eyzhn', 40, '1 τεμ.', 1),
-        M('tea_other', 0, '1 φλ. τσαγιού'),
-      ],
-    },
-    dinner: {
-      name: '«Πίτα γύρου»',
-      nameEn: '"Gyros pita"',
-      time: '17:00',
-      items: [
-        M('aladoti_pita', 60, '1 τεμ.'),
-        M('chicken_souvlaki', 100, '2 καλαμάκια (100 g)', 2),
-        M('salad_seasonal', 200, '1 μεγάλο μπολ (200 g)'),
-        M('tzatziki', 15, '1 κ.σ.'),
-        M('olive_oil', 15, '1 κ.σ.'),
-      ],
-    },
-    bedtime: {
-      name: 'Προ ύπνου',
-      nameEn: 'Bedtime',
-      time: '19:30',
-      items: [
-        M('cheese_cottage', 30, '2 κ.σ.'),
-        M('almonds', 12, '10 τεμ.', 10),
-        M('prunes', 14, '2 τεμ.', 2),
-      ],
-    },
+    label: 'Μενού Γ1+', color: '#FFF2CC',
+    breakfast: { name:'Smoothie Bowl', nameEn:'Smoothie Bowl', time:'07:00', items:[
+      M('ptisani', 20, '2 κ.σ.'),
+      M('kefir', 200, '1 φλ. τσαγιού'),
+      M('imon_matsa', 10, '½ φακελάκι', 0.5),
+      M('banana', 60, '60 γρ', null, [{ing:'watermelon', g:60}]),
+      M('kiwi', 50, '50 γρ', null, [{ing:'nectarine', g:50}]),
+      M('agrelaio', 2, '7 ψεκασμοί'),
+      M('ginger', 5, '1 κ.γ.'),
+      M('cinnamon', 3, '1 κ.γ.'),
+    ]},
+    morning: { name:'Φρούτο με καρύδια & λογάδι', nameEn:'Fruit with walnuts & logadi', time:'09:30', items:[
+      M('watermelon', 120, '120 γρ', null, [{ing:'nectarine', g:150}, {ing:'peach', g:150}]),
+      M('walnuts', 25, '10 μισά καρύδια', 5),
+      M('cheese_logadi', 25, '1 φ. λογάδι'),
+    ]},
+    lunch: { name:'Φασολάκια & Πρωτεΐνη', nameEn:'Green beans & Protein', time:'12:00', items:[
+      M('fasolakia', 250, '250 γρ μαγειρεμένα'),
+      M('chicken', 230, '230 γρ στήθος ψητό', null, [
+        {ing:'fish_lavraki', g:230}, {ing:'fish_tsipoura', g:230},
+      ]),
+      M('bread_home', 50, '50 γρ ψωμί σικάλεως'),
+      M('olive_oil', 30, '2 κ.σ.'),
+    ]},
+    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
+      M('imon_baby', 38, '1,5 τεμ. baby', 1.5),
+      M('tea_other', 0, '1 φλ. τσαγιού'),
+    ]},
+    dinner: { name:'Πίτα γύρου', nameEn:'Gyros pita', time:'17:00', items:[
+      M('aladoti_pita', 60, '1 τεμ.'),
+      M('chicken_souvlaki', 125, '2,5 καλαμάκια', 2.5),
+      M('salad_seasonal', 150, 'λαχανικά'),
+      M('olive_oil', 15, '1 κ.σ.'),
+    ]},
+    bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
+      M('cheese_cottage', 30, '2 κ.σ. cottage'),
+      M('almonds', 6, '5 τεμ.', 5),
+      M('prunes', 14, '2 τεμ.', 2, [{ing:'apricot', g:70}]),
+    ]},
   },
+
+  'Γ': {
+    label: 'Μενού Γ', color: '#EAF3DD',
+    breakfast: { name:'Αυγά ποσέ ή ομελέτα', nameEn:'Poached eggs or omelette', time:'07:00', items:[
+      M('egg', 120, '2 τεμ.', 2),
+      M('cheese_katiki', 40, '40 γρ κατίκι'),
+      M('paximadia_sikalis', 30, '30 γρ'),
+      M('piperies', 50, 'πιπεριές'),
+      M('watermelon', 80, '80 γρ'),
+    ]},
+    morning: { name:'Φρούτο με καρύδια & λογάδι', nameEn:'Fruit with walnuts & logadi', time:'09:30', items:[
+      M('watermelon', 120, '120 γρ', null, [{ing:'nectarine', g:150}, {ing:'peach', g:150}]),
+      M('walnuts', 25, '10 μισά καρύδια', 5),
+      M('cheese_logadi', 25, '1 φ. λογάδι'),
+    ]},
+    lunch: { name:'Πρωτεΐνη με παξιμάδι', nameEn:'Protein with rusk', time:'12:00', items:[
+      M('chicken', 230, '230 γρ ψητό', null, [
+        {ing:'fish_lavraki', g:230}, {ing:'fish_tsipoura', g:230},
+      ]),
+      M('salad_seasonal', 200, 'σαλάτα'),
+      M('paximadi_sikaleos', 60, '60 γρ παξ. σικάλεως', null, [{ing:'paximadi_zeas', g:60}]),
+      M('olive_oil', 30, '2 κ.σ.'),
+    ], alt:{ name:'Μοσχάρι με παξιμάδι', nameEn:'Beef with rusk', items:[
+      M('beef_fillet', 160, '160 γρ μοσχάρι'),
+      M('salad_seasonal', 200, 'σαλάτα'),
+      M('paximadi_sikaleos', 60, '60 γρ παξ. ή ψωμί σικάλεως ή ζέας', null, [
+        {ing:'paximadi_zeas', g:60}, {ing:'bread_home', g:60},
+      ]),
+      M('olive_oil', 30, '2 κ.σ.'),
+    ]}},
+    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
+      M('imon_eyzhn', 40, '1 τεμ. ευ ζην', 1),
+      M('tea_other', 0, '1 φλ. τσαγιού'),
+    ]},
+    dinner: { name:'Σαλάτα με mozzarella', nameEn:'Salad with mozzarella', time:'17:00', items:[
+      M('salad_seasonal', 200, 'ωμά λαχανικά'),
+      M('cheese_mozz_light', 60, '60 γρ'),
+      M('olive_oil', 22, '1,5 κ.σ.'),
+      M('kritsini_imon', 16, '4 τεμ. κριτσίνι', 4),
+    ]},
+    bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
+      M('cheese_cottage', 30, '2 κ.σ. cottage'),
+      M('almonds', 6, '5 τεμ.', 5, [{ing:'walnuts', g:25}]),
+      M('prunes', 14, '2 τεμ.', 2, [{ing:'apricot', g:70}]),
+    ]},
+  },
+
   'Ε': {
-    label: 'Μενού Ε',
-    color: '#E1D5E7',
-    breakfast: {
-      name: 'Φρυγανιές με φυστικοβούτυρο',
-      nameEn: 'Crispbread with peanut butter',
-      time: '07:00',
-      items: [
-        M('wasa', 30, '3 τεμ.', 3),
-        M('peanut_butter', 22, '1½ κ.σ.'),
-        M('raisins', 20, '2 κ.σ.'),
-      ],
-    },
-    morning: {
-      name: 'Τοστ με χούμους',
-      nameEn: 'Toast with hummus',
-      time: '09:30',
-      items: [
-        M('bread_home', 60, '60 γρ'),
-        M('hummus', 60, '60 γρ'),
-      ],
-    },
-    lunch: {
-      name: 'Ζυμαρικά + Θαλασσινά',
-      nameEn: 'Pasta + Seafood',
-      time: '12:00',
-      items: [
-        M('makaronia_zeas', 145, '145 γρ βρασμένα'),
-        M('shrimp', 200, '200 γρ'),
-        M('salad_seasonal', 200, '1 μεγάλο μπολ (200 g)'),
-        M('olive_oil', 30, '2 κ.σ.'),
-      ],
-    },
-    afternoon: {
-      name: 'Απογευματινό IMON',
-      nameEn: 'IMON afternoon',
-      time: '14:30',
-      items: [
-        M('imon_eyzhn', 40, '1 τεμ.', 1),
-        M('tea_other', 0, '1 φλ. τσαγιού'),
-      ],
-    },
-    dinner: {
-      name: 'Παξιμάδι + Φρούτο',
-      nameEn: 'Rusk + Fruit',
-      time: '17:00',
-      items: [
-        M('paximadi_krithino', 50, '50 γρ'),
-        M('apple', 150, '150 γρ', null, [{ing:'pear', g:150}, {ing:'kiwi', g:150}, {ing:'melon', g:120}, {ing:'watermelon', g:120}]),
-        M('walnuts', 25, '10 μισά καρύδια', 5),
-      ],
-    },
-    bedtime: {
-      name: 'Προ ύπνου',
-      nameEn: 'Bedtime',
-      time: '19:30',
-      items: [
-        M('pistachios', 10, '15 τεμ.', 15),
-        M('figs_dry', 30, '2 τεμ.', 2),
-      ],
-    },
+    label: 'Μενού Ε', color: '#E4DFEC',
+    breakfast: { name:'Smoothie Bowl', nameEn:'Smoothie Bowl', time:'07:00', items:[
+      M('ptisani', 20, '2 κ.σ.'),
+      M('kefir', 200, '1 φλ. τσαγιού'),
+      M('imon_matsa', 10, '½ φακελάκι', 0.5),
+      M('banana', 60, '60 γρ', null, [{ing:'watermelon', g:60}]),
+      M('kiwi', 50, '50 γρ', null, [{ing:'nectarine', g:50}]),
+      M('agrelaio', 2, '7 ψεκασμοί'),
+      M('ginger', 5, '1 κ.γ.'),
+      M('cinnamon', 3, '1 κ.γ.'),
+    ]},
+    morning: { name:'Φρούτο με καρύδια & λογάδι', nameEn:'Fruit with walnuts & logadi', time:'09:30', items:[
+      M('watermelon', 120, '120 γρ', null, [{ing:'nectarine', g:150}, {ing:'peach', g:150}]),
+      M('walnuts', 25, '10 μισά καρύδια', 5),
+      M('cheese_logadi', 25, '1 φ. λογάδι'),
+    ]},
+    lunch: { name:'Μακαρόνια ζέας & Θαλασσινά', nameEn:'Spelt pasta & Seafood', time:'12:00', items:[
+      M('makaronia_zeas', 145, '145 γρ βρασμένα'),
+      M('shrimp', 220, '220 γρ γαρίδες', null, [
+        {ing:'squid', g:220}, {ing:'cuttlefish', g:220}, {ing:'octopus', g:180},
+      ]),
+      M('salad_seasonal', 200, 'σαλάτα εποχής'),
+      M('olive_oil', 30, '2 κ.σ.'),
+    ]},
+    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
+      M('imon_vanilla', 25, '1 τεμ. βανίλιας', 1),
+      M('tea_other', 0, '1 φλ. τσαγιού'),
+    ]},
+    dinner: { name:'Παξιμάδι με καρπούζι', nameEn:'Rusk with watermelon', time:'17:00', items:[
+      M('paximadi_krithino', 60, '60 γρ'),
+      M('watermelon', 120, '120 γρ'),
+      M('cheese_logadi', 38, '1,5 φ. λογάδι'),
+      M('walnuts', 25, '10 μισά καρύδια', 5),
+    ]},
+    bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
+      M('cheese_cottage', 30, '2 κ.σ. cottage'),
+      M('almonds', 6, '5 τεμ.', 5, [{ing:'walnuts', g:25}]),
+      M('prunes', 14, '2 τεμ.', 2, [{ing:'apricot', g:70}]),
+    ]},
   },
 };
-
-
 const DEFAULT_STORES = [
   {id: 'imon',        name: 'IMON / Ομοιόστασις'},
   {id: 'sklavenitis', name: 'Σκλαβενίτης'},
@@ -1937,7 +1820,7 @@ const DEFAULT_STORES = [
   {id: 'mart',        name: 'Mart'},
 ];
 
-let WEEK_ORDER = ['Α','Γ','Β+','Α','Γ1+','Α','Ε'];
+let WEEK_ORDER = ['Γ','Α','Β+','Α','Γ1+','Α','Ε']; // v2: swapped Δευ↔Τρι — κοινά μεσημεριανά με Θανάση & Παύλο (6/7 ημέρες)
 // Built-in plan defaults (deep copies) — restored when no custom plan is active
 const DEFAULT_MENUS = JSON.parse(JSON.stringify(MENUS));
 const DEFAULT_WEEK_ORDER = WEEK_ORDER.slice();
@@ -1951,199 +1834,187 @@ const THANASIS_MENUS = {
     breakfast: { name:'Smoothie πρωτεΐνης', nameEn:'Protein smoothie', time:'07:00', items:[
       M('kefir', 120, '120 γρ'),
       M('yogurt_light', 100, '100 γρ'),
-      M('vromi', 25, '2,5 κ.σ.'),
+      M('vromi', 20, '2 κ.σ.'),
       M('protein_biologos', 30, '1 δοσομετρητή', 1),
       M('apple', 50, '50 γρ'),
       M('banana', 50, '50 γρ'),
-      M('peanut_butter', 15, '1 κ.σ.'),
-      M('cinnamon', 2, 'κανέλα'),
-      M('ginger', 2, 'τζίντζερ'),
+      M('peanut_butter', 10, '2 κ.γ.'),
+      M('cinnamon', 3, 'κανέλα'),
+      M('ginger', 5, 'τζίντζερ'),
     ]},
-    morning: { name:'Ψωμί με λογάδι', nameEn:'Bread with logadi cheese', time:'09:30', items:[
-      M('bread_home', 60, '60 γρ'),
-      M('cheese_logadi', 30, '1,5 φ'),
-      M('tomatini', 45, '3 ντοματίνια', 3),
+    morning: { name:'Ψωμί με έμενταλ', nameEn:'Bread with emmental', time:'09:30', items:[
+      M('bread_home', 60, '60 γρ ολικής ή ζέας'),
+      M('cheese_emmental_l', 30, '1,5 φ. έμενταλ'),
+      M('marouli', 20, 'λίγο μαρούλι'),
       M('apple', 100, '100 γρ'),
     ]},
     lunch: { name:'Δημητριακό + Πρωτεΐνη', nameEn:'Grain + Protein', time:'12:00', items:[
       M('kinoa', 150, '150 γρ βρασμένο', null, [
-        {ing:'bligouri', g:150},
-        {ing:'potato_baked', g:190},
-        {ing:'pasta_wholegrain', g:160},
+        {ing:'bligouri', g:150}, {ing:'rice_brown', g:150},
+        {ing:'rice_basmati', g:150}, {ing:'potato_baked', g:190},
       ]),
       M('turkey', 230, '230 γρ', null, [
-        {ing:'fish_generic', g:230},
-        {ing:'shrimp', g:230},
-        {ing:'squid', g:230},
-        {ing:'cuttlefish', g:230},
-        {ing:'octopus', g:180},
+        {ing:'fish_lavraki', g:230}, {ing:'fish_tsipoura', g:230},
       ]),
       M('salad_seasonal', 200, 'σαλάτα εποχής'),
       M('olive_oil', 30, '2 κ.σ.'),
     ]},
-    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_eyzhn', 40, '1 τεμ.', 1),
-      M('tea_other', 0, '1 φλ. τσαγιού'),
-    ], alt:{ name:'Γιαούρτι με μήλο', items:[
+    afternoon: { name:'Γιαούρτι με φρούτο', nameEn:'Yogurt with fruit', time:'14:30', items:[
       M('yogurt_light', 200, '1 κεσεδάκι'),
-      M('apple', 150, '150 γρ'),
-      M('peanut_butter', 15, '1 κ.σ.'),
-      M('cinnamon', 2, 'κανέλα'),
-    ]}},
-    dinner: { name:'Ντάκος', nameEn:'Dakos', time:'17:00', items:[
+      M('apple', 150, '150 γρ', null, [{ing:'nectarine', g:150}]),
+      M('walnuts', 13, '5 μισά καρύδια', 2.5),
+      M('cinnamon', 3, 'κανέλα'),
+    ]},
+    dinner: { name:'Σαλάτα με αυγό & cottage', nameEn:'Salad with egg & cottage', time:'17:00', items:[
+      M('salad_seasonal', 200, 'σαλάτα'),
       M('paximadi_krithino', 60, '60 γρ'),
       M('olive_oil', 15, '1 κ.σ.'),
-      M('tomatini', 150, '10 ντοματίνια', 10),
-      M('agouri', 60, '1 αγγούρι'),
       M('egg', 60, '1 αυγό βραστό', 1),
-      M('cheese_cottage', 70, '70 γρ', null, [{ing:'cheese_feta_light', g:40}]),
+      M('cheese_cottage', 100, '100 γρ cottage'),
     ]},
     bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
-      M('cheese_cottage', 38, '2,5 κ.σ.'),
+      M('cheese_cottage', 30, '2 κ.σ. cottage'),
       M('almonds', 6, '5 τεμ.', 5),
-      M('apple', 80, '80 γρ'),
+      M('apple', 80, '80 γρ', null, [{ing:'nectarine', g:80}]),
     ]},
   },
+
   'Β': {
     label: 'Μενού Β', color: '#FCE4D6',
     breakfast: { name:'Κουακερόπιτα', nameEn:'Oat pancake', time:'07:00', items:[
-      M('egg_white', 90, '3 ασπράδια', 3),
-      M('vromi', 25, '2,5 κ.σ.'),
-      M('peanut_butter', 15, '3 κ.γ.'),
+      M('egg_white', 100, '3 ασπράδια', 3),
+      M('vromi', 25, '2-3 κ.σ.'),
+      M('peanut_butter', 10, '2 κ.γ.'),
       M('honey', 5, '1 κ.γ.'),
-      M('cinnamon', 2, 'κανέλα'),
-      M('banana', 70, '70 γρ'),
+      M('cinnamon', 3, 'κανέλα Κευλάνης'),
+      M('kiwi', 100, '100 γρ'),
     ]},
-    morning: { name:'Ψωμί με λογάδι', nameEn:'Bread with logadi cheese', time:'09:30', items:[
-      M('bread_home', 60, '60 γρ'),
-      M('cheese_logadi', 30, '1,5 φ'),
-      M('tomatini', 45, '3 ντοματίνια', 3),
-      M('apple', 100, '100 γρ'),
+    morning: { name:'Γιαούρτι με ροδάκινο', nameEn:'Yogurt with peach', time:'09:30', items:[
+      M('yogurt_light', 200, '1 κεσεδάκι'),
+      M('peach', 150, '150 γρ'),
+      M('walnuts', 13, '5 μισά καρύδια', 2.5),
     ]},
     lunch: { name:'Όσπρια & Φέτα', nameEn:'Legumes & Feta', time:'12:00', items:[
-      M('ospria_fakes', 200, '200 γρ βρασμένα'),
-      M('cheese_feta_light', 120, '120 γρ'),
+      M('ospria_fakes', 200, '200 γρ βρασμένα', null, [
+        {ing:'ospria_revithia', g:200}, {ing:'ospria_fasolia', g:200},
+        {ing:'ospria_gigantes', g:200}, {ing:'ospria_mavromat', g:200},
+        {ing:'ospria_fava', g:200}, {ing:'ospria_koukia', g:200},
+      ]),
+      M('cheese_feta_light', 90, '90 γρ φέτα'),
       M('paximadi_krithino', 20, '20 γρ'),
       M('salad_seasonal', 200, 'σαλάτα εποχής'),
       M('olive_oil', 30, '2 κ.σ.'),
     ]},
-    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_xaroupi', 30, '1 τεμ.', 1),
-      M('tea_other', 0, '1 φλ. τσαγιού'),
-    ], alt:{ name:'Γραβιέρα, μήλο & αμύγδαλα', items:[
-      M('cheese_graviera', 30, '30 γρ'),
-      M('apple', 150, '150 γρ', null, [{ing:'apricot', g:150}]),
-      M('almonds', 12, '10 τεμ.', 10),
-    ]}},
+    afternoon: { name:'Wasa με philadelphia', nameEn:'Wasa with Philadelphia', time:'14:30', items:[
+      M('wasa', 30, '3 τεμ.', 3),
+      M('cheese_philadelphia_l', 30, '2 κ.σ. κοφτές'),
+      M('nectarine', 100, '100 γρ', null, [{ing:'apple', g:100}]),
+    ]},
     dinner: { name:'Αραβική πίτα με mozzarella', nameEn:'Pita with mozzarella', time:'17:00', items:[
       M('arabiki_pita', 60, '60 γρ'),
       M('cheese_mozz_light', 70, '70 γρ'),
-      M('tomatini', 75, '5 ντοματίνια', 5),
       M('manitaria', 50, 'μανιτάρια'),
       M('piperies', 50, 'πιπεριές'),
       M('pesto', 15, '1 κ.σ.'),
     ]},
     bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
-      M('cheese_cottage', 38, '2,5 κ.σ.'),
+      M('cheese_cottage', 30, '2 κ.σ. cottage'),
       M('almonds', 6, '5 τεμ.', 5),
       M('apple', 80, '80 γρ'),
     ]},
   },
+
   'Γ1': {
     label: 'Μενού Γ1', color: '#FFF2CC',
     breakfast: { name:'Smoothie πρωτεΐνης', nameEn:'Protein smoothie', time:'07:00', items:[
       M('kefir', 120, '120 γρ'),
       M('yogurt_light', 100, '100 γρ'),
-      M('vromi', 25, '2,5 κ.σ.'),
+      M('vromi', 20, '2 κ.σ.'),
       M('protein_biologos', 30, '1 δοσομετρητή', 1),
       M('apple', 50, '50 γρ'),
       M('banana', 50, '50 γρ'),
-      M('peanut_butter', 15, '1 κ.σ.'),
-      M('cinnamon', 2, 'κανέλα'),
-      M('ginger', 2, 'τζίντζερ'),
+      M('peanut_butter', 10, '2 κ.γ.'),
+      M('cinnamon', 3, 'κανέλα'),
+      M('ginger', 5, 'τζίντζερ'),
     ]},
-    morning: { name:'Ψωμί με λογάδι', nameEn:'Bread with logadi cheese', time:'09:30', items:[
-      M('bread_home', 60, '60 γρ'),
-      M('cheese_logadi', 30, '1,5 φ'),
-      M('tomatini', 45, '3 ντοματίνια', 3),
+    morning: { name:'Ψωμί με έμενταλ', nameEn:'Bread with emmental', time:'09:30', items:[
+      M('bread_home', 60, '60 γρ ολικής ή ζέας'),
+      M('cheese_emmental_l', 30, '1,5 φ. έμενταλ'),
+      M('marouli', 20, 'λίγο μαρούλι'),
       M('apple', 100, '100 γρ'),
     ]},
-    lunch: { name:'Φασολάκια & πατάτα', nameEn:'Green beans & potato', time:'12:00', items:[
-      M('fasolakia', 250, '250 γρ'),
-      M('potato_baked', 120, '120 γρ βραστή'),
-      M('cheese_feta_light', 120, '120 γρ', null, [{ing:'chicken', g:220}]),
+    lunch: { name:'Ψητά λαχανικά & Πρωτεΐνη', nameEn:'Roast vegetables & Protein', time:'12:00', items:[
+      M('salad_seasonal', 250, 'ψητά λαχανικά'),
+      M('chicken', 230, '230 γρ πουλερικό', null, [
+        {ing:'fish_lavraki', g:230}, {ing:'fish_tsipoura', g:230},
+      ]),
+      M('bread_home', 60, '60 γρ ψωμί σικάλεως'),
       M('olive_oil', 30, '2 κ.σ.'),
     ]},
-    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_karydas', 30, '1 τεμ.', 1),
-      M('tea_other', 0, '1 φλ. τσαγιού'),
-    ], alt:{ name:'Wasa με φυστικοβούτυρο & μέλι', items:[
-      M('wasa', 30, '3 τεμ.', 3),
-      M('peanut_butter', 15, '3 κ.γ.'),
-      M('honey', 5, '1 κ.γ.'),
-    ]}},
-    dinner: { name:'Πίτα γύρου', nameEn:'Gyros pita', time:'17:00', items:[
-      M('aladoti_pita', 60, '1 τεμ.'),
-      M('chicken_souvlaki', 125, '2,5 καλαμάκια', 2.5),
-      M('salad_seasonal', 150, 'λαχανικά'),
-      M('tzatziki', 5, '1 κ.γ.'),
+    afternoon: { name:'Γραβιέρα με φρούτο', nameEn:'Graviera with fruit', time:'14:30', items:[
+      M('cheese_graviera', 30, '30 γρ'),
+      M('apple', 150, '150 γρ', null, [{ing:'peach', g:150}]),
+      M('cashews', 15, '10 τεμ.', 10),
+    ]},
+    dinner: { name:'Κοτόπουλο με λαχανικά', nameEn:'Chicken with vegetables', time:'17:00', items:[
+      M('chicken', 130, '130 γρ φιλέτο ψητό'),
+      M('salad_seasonal', 200, 'λαχανικά'),
+      M('bread_home', 60, '60 γρ ψωμί σικάλεως'),
       M('olive_oil', 15, '1 κ.σ.'),
     ]},
     bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
-      M('cheese_cottage', 38, '2,5 κ.σ.'),
+      M('cheese_cottage', 30, '2 κ.σ. cottage'),
       M('almonds', 6, '5 τεμ.', 5),
-      M('apple', 80, '80 γρ'),
+      M('apple', 80, '80 γρ', null, [{ing:'nectarine', g:80}]),
     ]},
   },
+
   'Γ': {
     label: 'Μενού Γ', color: '#EAF3DD',
     breakfast: { name:'Ομελέτα ή αυγό βραστό', nameEn:'Omelette or boiled egg', time:'07:00', items:[
-      M('egg_white', 90, '3 ασπράδια', 3),
+      M('egg_white', 100, '3 ασπράδια', 3),
       M('egg', 20, '1 κρόκος'),
-      M('cheese_feta_light', 40, '40 γρ'),
-      M('paximadi_krithino', 30, '30 γρ'),
+      M('cheese_cottage', 70, '70 γρ cottage'),
+      M('paximadi_sikaleos', 30, '30 γρ'),
       M('olive_oil', 5, '1 κ.γ.'),
-      M('orange_juice', 150, '150 γρ φρέσκο χυμό', null, [{ing:'apple', g:150}]),
+      M('orange_juice', 120, '120 γρ'),
     ]},
-    morning: { name:'Ψωμί με λογάδι', nameEn:'Bread with logadi cheese', time:'09:30', items:[
-      M('bread_home', 60, '60 γρ'),
-      M('cheese_logadi', 30, '1,5 φ'),
-      M('tomatini', 45, '3 ντοματίνια', 3),
-      M('apple', 100, '100 γρ'),
+    morning: { name:'Φρούτο με παρμεζάνα', nameEn:'Fruit with parmesan', time:'09:30', items:[
+      M('apple', 150, '150 γρ', null, [{ing:'nectarine', g:150}]),
+      M('cheese_parmesan', 30, '30 γρ'),
+      M('kritsini_polysporo', 30, '30 γρ'),
+      M('almonds', 6, '5 τεμ.', 5),
     ]},
-    lunch: { name:'Μπιφτέκι με παξιμάδι', nameEn:'Burger with rusk', time:'12:00', items:[
-      M('chicken_burger', 220, '220 γρ πουλερικό', null, [
-        {ing:'chicken', g:220},
-        {ing:'beef_fillet', g:170},
-        {ing:'beef_burger', g:170},
+    lunch: { name:'Πουλερικό ή μοσχάρι', nameEn:'Poultry or beef', time:'12:00', items:[
+      M('chicken', 210, '210 γρ φιλέτο ή μπιφτέκι', null, [
+        {ing:'chicken_burger', g:210}, {ing:'beef_fillet', g:160}, {ing:'beef_burger', g:160},
       ]),
-      M('paximadi_sikaleos', 60, '60 γρ'),
+      M('paximadi_sikaleos', 60, '60 γρ παξ. σικάλεως'),
       M('olive_oil', 30, '2 κ.σ.'),
     ]},
-    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_eyzhn', 40, '1 τεμ.', 1),
-      M('tea_other', 0, '1 φλ. τσαγιού'),
-    ], alt:{ name:'Γιαούρτι με μήλο', items:[
+    afternoon: { name:'Γιαούρτι με φρούτο', nameEn:'Yogurt with fruit', time:'14:30', items:[
       M('yogurt_light', 200, '1 κεσεδάκι'),
-      M('apple', 150, '150 γρ'),
-      M('peanut_butter', 15, '1 κ.σ.'),
-      M('cinnamon', 2, 'κανέλα'),
-    ]}},
+      M('apple', 150, '150 γρ', null, [{ing:'peach', g:150}]),
+      M('walnuts', 13, '5 μισά καρύδια', 2.5),
+      M('cinnamon', 3, 'κανέλα'),
+    ]},
     dinner: { name:'Σαλάτα με πρωτεΐνη', nameEn:'Salad with protein', time:'17:00', items:[
       M('marouli', 100, 'σαλάτα πράσινη'),
       M('agouri', 60, 'αγγούρι'),
-      M('chicken_burger', 120, '120 γρ πουλερικό', null, [{ing:'tuna_water', g:60}]),
+      M('chicken', 120, '120 γρ φιλέτο ή μπιφτέκι', null, [
+        {ing:'chicken_burger', g:120}, {ing:'tuna_water', g:120},
+      ]),
       M('olive_oil', 15, '1 κ.σ.'),
-      M('paximadi_sikaleos', 60, '60 γρ'),
+      M('paximadi_sikaleos', 60, '60 γρ παξ. σικάλεως'),
     ]},
     bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
-      M('cheese_cottage', 38, '2,5 κ.σ.'),
+      M('cheese_cottage', 30, '2 κ.σ. cottage'),
       M('almonds', 6, '5 τεμ.', 5),
       M('apple', 80, '80 γρ'),
     ]},
   },
 };
-const THANASIS_WEEK_ORDER = ['Α','Γ','Β','Α','Γ1','Α','Γ'];
+const THANASIS_WEEK_ORDER = ['Γ','Α','Β','Α','Γ1','Α','Γ']; // v2: swapped Δευ↔Τρι — κοινά μεσημεριανά με Θωμά & Παύλο
 
 // ============================================================================
 // PAULOS menus (from 19 Jun 2026 PDF) — 4 menus, household units → grams
@@ -2152,194 +2023,194 @@ const PAULOS_MENUS = {
   'Α': {
     label: 'Μενού Α', color: '#DCE6F1',
     breakfast: { name:'Smoothie πρωτεΐνης', nameEn:'Protein smoothie', time:'07:00', items:[
-      M('milk_light', 120, '½ ποτήρι'),
+      M('milk_light', 100, '100 γρ'),
       M('yogurt_light', 100, '½ κεσεδάκι'),
-      M('vromi', 25, '2,5 κ.σ.'),
+      M('vromi', 20, '2 κ.σ.'),
       M('protein_biologos', 15, '½ δοσομετρητή', 0.5),
-      M('peach', 150, '1 μέτριο ροδάκινο', 1),
-      M('peanut_butter', 15, '1 κ.σ.'),
-      M('cinnamon', 2, 'κανέλα'),
-      M('ginger', 2, 'τζίντζερ'),
+      M('peach', 120, '120 γρ ροδάκινο'),
+      M('peanut_butter', 10, '2 κ.γ.'),
+      M('cinnamon', 3, 'κανέλα'),
+      M('ginger', 5, 'τζίντζερ'),
     ]},
     morning: { name:'Ψωμί με γκούντα', nameEn:'Bread with gouda', time:'09:30', items:[
-      M('bread_home', 60, '2 φ (60 γρ)'),
-      M('cheese_gouda_edam_l', 30, '1,5 φ (30 γρ)'),
-      M('tomatini', 45, '3 ντοματίνια', 3),
+      M('bread_home', 60, '60 γρ ολικής ή ζέας'),
+      M('cheese_gouda_edam_l', 30, '1,5 φ. γκούντα'),
+      M('tomato', 40, 'λίγη ντομάτα'),
     ]},
     lunch: { name:'Δημητριακό + Πρωτεΐνη', nameEn:'Grain + Protein', time:'12:00', items:[
-      M('kinoa', 150, '1 φλ. τσαγιού', null, [
-        {ing:'bligouri', g:150},
-        {ing:'potato_baked', g:190},
-        {ing:'pasta_wholegrain', g:150},
+      M('kinoa', 140, '140 γρ βρασμένο', null, [
+        {ing:'bligouri', g:140}, {ing:'rice_brown', g:140}, {ing:'potato_baked', g:180},
       ]),
-      M('turkey', 145, '1+1/5 παλάμης (145 γρ)', null, [
-        {ing:'fish_generic', g:145},
-        {ing:'shrimp', g:180},
-        {ing:'squid', g:145},
-        {ing:'octopus', g:120},
+      M('turkey', 220, '220 γρ', null, [
+        {ing:'fish_lavraki', g:220}, {ing:'fish_tsipoura', g:220},
       ]),
       M('salad_seasonal', 200, 'σαλάτα εποχής'),
       M('olive_oil', 22, '1,5 κ.σ.'),
-    ]},
-    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_eyzhn', 40, '1 τεμ.', 1),
-      M('tea_other', 0, '1 φλ. τσαγιού'),
-    ], alt:{ name:'Γιαούρτι με ροδάκινο', items:[
-      M('yogurt_light', 200, '1 κεσεδάκι'),
-      M('peach', 150, '1 μέτριο ροδάκινο', 1),
-      M('peanut_butter', 15, '1 κ.σ.'),
-      M('cinnamon', 2, 'κανέλα'),
+    ], alt:{ name:'Μακαρόνια με θαλασσινά', nameEn:'Pasta with seafood', items:[
+      M('pasta_wholegrain', 150, '150 γρ βρασμένα'),
+      M('shrimp', 210, '210 γρ γαρίδες', null, [
+        {ing:'squid', g:210}, {ing:'cuttlefish', g:210}, {ing:'octopus', g:160},
+      ]),
+      M('salad_seasonal', 200, 'σαλάτα εποχής'),
+      M('olive_oil', 22, '1,5 κ.σ.'),
+    ]}, alt2:{ name:'Ρύζι για γεμιστά με φέτα', nameEn:'Rice for stuffed vegetables with feta', items:[
+      M('rice_brown', 130, '130 γρ βρασμένο για γεμιστά', null, [{ing:'rice_basmati', g:130}]),
+      M('cheese_feta_light', 100, '100 γρ φέτα ελαφριά'),
+      M('salad_seasonal', 200, 'σαλάτα εποχής'),
+      M('olive_oil', 22, '1,5 κ.σ.'),
     ]}},
+    afternoon: { name:'Γιαούρτι με ροδάκινο', nameEn:'Yogurt with peach', time:'14:30', items:[
+      M('yogurt_light', 200, '1 κεσεδάκι'),
+      M('peach', 120, '120 γρ', null, [{ing:'apple', g:120}]),
+      M('peanut_butter', 5, '1 κ.γ.'),
+      M('cinnamon', 3, 'κανέλα'),
+    ]},
     dinner: { name:'Ντάκος', nameEn:'Dakos', time:'17:00', items:[
-      M('paximadi_krithino', 50, '5 μικρά παξιμ (50 γρ)', 5),
+      M('paximadi_krithino', 50, '50 γρ κρίθινο ή σικάλεως', null, [{ing:'paximadi_sikaleos', g:50}]),
       M('olive_oil', 15, '1 κ.σ.'),
       M('tomatini', 150, '10 ντοματίνια', 10),
-      M('agouri', 60, '1 αγγούρι'),
-      M('cheese_feta_light', 75, '2,5 σπιρτόκουτα (75 γρ)'),
+      M('agouri', 60, 'αγγούρι'),
+      M('cheese_feta_light', 70, '70 γρ φέτα ελαφριά'),
     ]},
     bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
-      M('cheese_gouda_edam_l', 10, '½ φ (10 γρ)'),
+      M('cheese_gouda_edam_l', 10, '½ φ. γκούντα light'),
       M('almonds', 6, '5 τεμ.', 5),
-      M('apple', 120, '2/3 μήλο'),
+      M('apple', 100, '100 γρ', null, [{ing:'peach', g:100}]),
     ]},
   },
+
   'Β': {
     label: 'Μενού Β', color: '#FCE4D6',
     breakfast: { name:'Smoothie πρωτεΐνης', nameEn:'Protein smoothie', time:'07:00', items:[
-      M('milk_light', 120, '½ ποτήρι'),
+      M('milk_light', 100, '100 γρ'),
       M('yogurt_light', 100, '½ κεσεδάκι'),
-      M('vromi', 25, '2,5 κ.σ.'),
+      M('vromi', 20, '2 κ.σ.'),
       M('protein_biologos', 15, '½ δοσομετρητή', 0.5),
-      M('peach', 150, '1 μέτριο ροδάκινο', 1),
-      M('peanut_butter', 15, '1 κ.σ.'),
-      M('cinnamon', 2, 'κανέλα'),
-      M('ginger', 2, 'τζίντζερ'),
+      M('peach', 120, '120 γρ ροδάκινο'),
+      M('peanut_butter', 10, '2 κ.γ.'),
+      M('cinnamon', 3, 'κανέλα'),
+      M('ginger', 5, 'τζίντζερ'),
     ]},
     morning: { name:'Ψωμί με γκούντα', nameEn:'Bread with gouda', time:'09:30', items:[
-      M('bread_home', 60, '2 φ (60 γρ)'),
-      M('cheese_gouda_edam_l', 30, '1,5 φ (30 γρ)'),
-      M('tomatini', 45, '3 ντοματίνια', 3),
+      M('bread_home', 60, '60 γρ ολικής ή ζέας'),
+      M('cheese_gouda_edam_l', 30, '1,5 φ. γκούντα'),
+      M('tomato', 40, 'λίγη ντομάτα'),
     ]},
     lunch: { name:'Όσπρια & Φέτα', nameEn:'Legumes & Feta', time:'12:00', items:[
-      M('ospria_fakes', 150, '1 φλ. τσαγιού βρασμένα'),
-      M('cheese_feta_light', 120, '4 σπιρτόκουτα (120 γρ)'),
-      M('paximadi_krithino', 10, '1 μικρό παξιμ', 1),
+      M('ospria_fakes', 200, '200 γρ βρασμένα', null, [
+        {ing:'ospria_revithia', g:200}, {ing:'ospria_fasolia', g:200},
+        {ing:'ospria_gigantes', g:200}, {ing:'ospria_mavromat', g:200},
+        {ing:'ospria_fava', g:200}, {ing:'ospria_koukia', g:200},
+      ]),
+      M('cheese_feta_light', 100, '100 γρ φέτα ελαφριά'),
+      M('paximadi_krithino', 10, '10 γρ'),
       M('salad_seasonal', 200, 'σαλάτα εποχής'),
       M('olive_oil', 22, '1,5 κ.σ.'),
     ]},
     afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_xaroupi', 30, '1 τεμ.', 1),
-      M('tea_other', 0, '1 φλ. τσαγιού'),
-    ], alt:{ name:'Γραβιέρα, μήλο & αμύγδαλα', items:[
-      M('cheese_graviera', 30, '1 σπιρτόκουτο (30 γρ)'),
-      M('apple', 150, '1 μέτριο μήλο', null, [{ing:'apricot', g:150}]),
-      M('almonds', 12, '10 τεμ.', 10),
-    ]}},
+      M('imon_xaroupi', 30, '1 τεμ. χαρούπι', 1),
+    ]},
     dinner: { name:'Αραβική πίτα με mozzarella', nameEn:'Pita with mozzarella', time:'17:00', items:[
-      M('arabiki_pita', 60, '1 μεγάλη αραβική πίτα'),
-      M('cheese_dirollo_l', 50, '½ μπάλα dirollo light (50 γρ)'),
+      M('arabiki_pita', 60, '60 γρ'),
+      M('cheese_dirollo_l', 60, '60 γρ dirollo light'),
       M('tomatini', 75, '5 ντοματίνια', 5),
-      M('pesto', 15, '1 κ.σ.'),
     ]},
     bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
-      M('cheese_gouda_edam_l', 10, '½ φ (10 γρ)'),
+      M('cheese_gouda_edam_l', 10, '½ φ. γκούντα light'),
       M('almonds', 6, '5 τεμ.', 5),
-      M('apple', 120, '2/3 μήλο'),
+      M('apple', 100, '100 γρ', null, [{ing:'peach', g:100}]),
     ]},
   },
+
   'Γ1': {
     label: 'Μενού Γ1', color: '#FFF2CC',
     breakfast: { name:'Ομελέτα ή αυγό βραστό', nameEn:'Omelette or boiled egg', time:'07:00', items:[
-      M('egg_white', 90, '3 ασπράδια', 3),
+      M('egg_white', 100, '3 ασπράδια', 3),
       M('egg', 20, '1 κρόκος'),
-      M('cheese_feta_light', 30, '1 σπιρτόκουτο (30 γρ)'),
-      M('paximadi_krithino', 20, '2 μικρά παξιμ (20 γρ)', 2),
+      M('cheese_feta_light', 30, '30 γρ φέτα ελαφριά'),
+      M('paximadi_krithino', 35, '35 γρ κρίθινο ή σικάλεως', null, [{ing:'paximadi_sikaleos', g:35}]),
       M('olive_oil', 5, '1 κ.γ.'),
-      M('orange_juice', 180, '3/4 φλ. τσαγιού', null, [{ing:'peach', g:150}]),
+      M('orange_juice', 120, '120 γρ χυμό πορτοκάλι', null, [{ing:'watermelon', g:120}]),
     ]},
-    morning: { name:'Ψωμί με γκούντα', nameEn:'Bread with gouda', time:'09:30', items:[
-      M('bread_home', 60, '2 φ (60 γρ)'),
-      M('cheese_gouda_edam_l', 30, '1,5 φ (30 γρ)'),
-      M('tomatini', 45, '3 ντοματίνια', 3),
+    morning: { name:'Wasa με φυστικοβούτυρο', nameEn:'Wasa with peanut butter', time:'09:30', items:[
+      M('wasa', 20, '2 τεμ.', 2),
+      M('peanut_butter', 10, '2 κ.γ.'),
+      M('jam_no_sugar', 10, '2 κ.γ.'),
     ]},
     lunch: { name:'Φασολάκια & πατάτα', nameEn:'Green beans & potato', time:'12:00', items:[
-      M('fasolakia', 300, '2 φλ. τσαγιού'),
-      M('potato_baked', 120, '1 μικρή πατάτα βραστή'),
-      M('cheese_feta_light', 120, '4 σπιρτόκουτα (120 γρ)', null, [{ing:'chicken', g:150}]),
+      M('fasolakia', 220, '220 γρ μαγειρεμένα'),
+      M('potato_boiled', 100, '100 γρ βραστή'),
+      M('cheese_feta_light', 110, '110 γρ φέτα ελαφριά', null, [{ing:'chicken', g:210}]),
       M('olive_oil', 22, '1,5 κ.σ.'),
     ]},
     afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_karydas', 30, '1 τεμ.', 1),
-      M('tea_other', 0, '1 φλ. τσαγιού'),
-    ], alt:{ name:'Wasa με philadelphia & ροδάκινο', items:[
-      M('wasa', 30, '3 τεμ.', 3),
-      M('cheese_philadelphia_l', 22, '1,5 κ.σ.'),
-      M('peach', 150, '1 μικρό ροδάκινο', 1),
-    ]}},
+      M('imon_karydas', 30, '1 τεμ. καρύδας', 1),
+    ]},
     dinner: { name:'Πίτα γύρου', nameEn:'Gyros pita', time:'17:00', items:[
       M('aladoti_pita', 60, '1 τεμ.'),
-      M('chicken_souvlaki', 100, '2,5 καλαμάκια (100 γρ)', 2.5),
+      M('chicken_souvlaki', 120, '120 γρ καλαμάκια'),
       M('salad_seasonal', 150, 'λαχανικά'),
       M('olive_oil', 15, '1 κ.σ.'),
     ]},
     bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
-      M('cheese_gouda_edam_l', 10, '½ φ (10 γρ)'),
+      M('cheese_gouda_edam_l', 10, '½ φ. γκούντα light'),
       M('almonds', 6, '5 τεμ.', 5),
-      M('apple', 120, '2/3 μήλο'),
+      M('nectarine', 100, '100 γρ'),
     ]},
   },
+
   'Γ': {
     label: 'Μενού Γ', color: '#EAF3DD',
     breakfast: { name:'Ομελέτα ή αυγό βραστό', nameEn:'Omelette or boiled egg', time:'07:00', items:[
-      M('egg_white', 90, '3 ασπράδια', 3),
+      M('egg_white', 100, '3 ασπράδια', 3),
       M('egg', 20, '1 κρόκος'),
-      M('cheese_feta_light', 30, '1 σπιρτόκουτο (30 γρ)'),
-      M('paximadi_krithino', 20, '2 μικρά παξιμ (20 γρ)', 2),
+      M('cheese_feta_light', 30, '30 γρ φέτα ελαφριά'),
+      M('paximadi_krithino', 35, '35 γρ κρίθινο ή σικάλεως', null, [{ing:'paximadi_sikaleos', g:35}]),
       M('olive_oil', 5, '1 κ.γ.'),
-      M('orange_juice', 180, '3/4 φλ. τσαγιού', null, [{ing:'peach', g:150}]),
+      M('orange_juice', 120, '120 γρ χυμό πορτοκάλι'),
     ]},
     morning: { name:'Ψωμί με γκούντα', nameEn:'Bread with gouda', time:'09:30', items:[
-      M('bread_home', 60, '2 φ (60 γρ)'),
-      M('cheese_gouda_edam_l', 30, '1,5 φ (30 γρ)'),
-      M('tomatini', 45, '3 ντοματίνια', 3),
+      M('bread_home', 60, '60 γρ ολικής ή ζέας'),
+      M('cheese_gouda_edam_l', 30, '1,5 φ. γκούντα'),
+      M('tomato', 40, 'λίγη ντομάτα'),
     ]},
-    lunch: { name:'Μπιφτέκι με παξιμάδι', nameEn:'Burger with rusk', time:'12:00', items:[
-      M('chicken_burger', 150, '1 μεγάλη παλάμη πουλερικό', null, [
-        {ing:'chicken', g:150},
-        {ing:'beef_fillet', g:120},
-        {ing:'beef_burger', g:120},
+    lunch: { name:'Πουλερικό ή μοσχάρι', nameEn:'Poultry or beef', time:'12:00', items:[
+      M('chicken', 210, '210 γρ φιλέτο ή μπιφτέκι', null, [
+        {ing:'chicken_burger', g:210}, {ing:'beef_fillet', g:160}, {ing:'beef_burger', g:160},
       ]),
-      M('paximadi_sikaleos', 50, '5 μικρά παξιμ (50 γρ)', 5),
+      M('paximadi_krithino', 50, '50 γρ κρίθινο ή σικάλεως', null, [{ing:'paximadi_sikaleos', g:50}]),
       M('olive_oil', 22, '1,5 κ.σ.'),
     ]},
-    afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_eyzhn', 40, '1 τεμ.', 1),
-      M('tea_other', 0, '1 φλ. τσαγιού'),
-    ], alt:{ name:'Γιαούρτι με ροδάκινο', items:[
-      M('yogurt_light', 200, '1 κεσεδάκι'),
-      M('peach', 150, '1 μέτριο ροδάκινο', 1),
-      M('peanut_butter', 15, '1 κ.σ.'),
-      M('cinnamon', 2, 'κανέλα'),
-    ]}},
+    afternoon: { name:'Ψωμί με philadelphia & μαρμελάδα', nameEn:'Bread with Philadelphia & jam', time:'14:30', items:[
+      M('bread_home', 40, '40 γρ ψωμί σικάλεως'),
+      M('cheese_philadelphia_l', 10, '2 κ.γ.'),
+      M('jam_no_sugar', 10, '2 κ.γ.'),
+    ]},
     dinner: { name:'Σαλάτα με πρωτεΐνη', nameEn:'Salad with protein', time:'17:00', items:[
       M('marouli', 100, 'σαλάτα πράσινη'),
       M('agouri', 60, 'αγγούρι'),
-      M('chicken_burger', 60, '½ παλάμη πουλερικό', null, [{ing:'tuna_water', g:60}]),
-      M('cheese_philadelphia_l', 22, '1,5 κ.σ. philadelphia'),
+      M('chicken', 60, '60 γρ φιλέτο ή μπιφτέκι', null, [
+        {ing:'chicken_burger', g:60}, {ing:'tuna_water', g:60},
+      ]),
+      M('cheese_philadelphia_l', 30, '30 γρ philadelphia light'),
       M('mustard', 15, '1 κ.σ. μουστάρδα'),
       M('olive_oil', 15, '1 κ.σ.'),
-      M('paximadi_sikaleos', 50, '5 μικρά παξιμ (50 γρ)', 5),
+      M('paximadi_krithino', 50, '50 γρ κρίθινο ή σικάλεως', null, [{ing:'paximadi_sikaleos', g:50}]),
     ]},
     bedtime: { name:'Προ ύπνου', nameEn:'Bedtime', time:'19:30', items:[
-      M('cheese_gouda_edam_l', 10, '½ φ (10 γρ)'),
+      M('cheese_gouda_edam_l', 10, '½ φ. γκούντα light'),
       M('almonds', 6, '5 τεμ.', 5),
-      M('apple', 120, '2/3 μήλο'),
+      M('apple', 100, '100 γρ'),
     ]},
   },
 };
-const PAULOS_WEEK_ORDER = ['Α','Γ','Β','Α','Γ1','Α','Γ'];
+const PAULOS_WEEK_ORDER = ['Γ','Α','Β','Α','Γ1','Α','Γ']; // v2: swapped Δευ↔Τρι — smoothie on Παύλος work days (Τρι/Πεμ/Σαβ)
 const DAY_NAMES = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη','Παρασκευή','Σάββατο','Κυριακή'];
 const DAY_SHORT = ['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
+// Όλα τα πιθανά μπλοκ εναλλακτικών ενός γεύματος, με σειρά εμφάνισης.
+// Προσθήκη νέου: αρκεί ένα ακόμη κλειδί εδώ.
+const ALT_KEYS = ['alt', 'alt2', 'alt3', 'altBreakfast', 'altDinner'];
+
 const MEAL_TYPES = [
   {id:'breakfast', name:'Πρωινό', icon:'🌅'},
   {id:'morning', name:'Δεκατιανό', icon:'🥪'},
@@ -2554,6 +2425,8 @@ const I18N = {
     ateBtn: 'Ολοκλήρωση',
     ateDone: 'Ολοκληρώθηκε',
     altDinner: '🔄 Εναλλακτικό βραδινό',
+    altBreakfast: '🔄 Εναλλακτικό πρωινό',
+    altMeal: '🔄 Εναλλακτικό',
     details: 'Λεπτομέρειες →',
     weeklyTotal: 'Σύνολο 3 εβδ.',
     shopNotice: 'Έχει υπολογιστεί από τις πραγματικές καταναλώσεις των 21 ημερών (μετά τις αντικαταστάσεις σου). Τσέκαρε τα προϊόντα όταν τα αγοράσεις.',
@@ -2577,6 +2450,31 @@ const I18N = {
     close: 'Κλείσιμο',
     reset: '⚠ Επαναφορά',
     resetBtn: 'Επαναφορά όλων των δεδομένων',
+    backupTitle: 'Αντίγραφο ασφαλείας',
+    backupHelp: 'Κατέβασε όλα σου τα δεδομένα σε ένα αρχείο. Κάθε browser κρατάει ξεχωριστά δεδομένα — κράτα αντίγραφο από αυτόν που χρησιμοποιείς.',
+    backupExport: 'Εξαγωγή σε αρχείο',
+    backupImport: 'Επαναφορά από αρχείο',
+    backupStats: 'Σε αυτή τη συσκευή',
+    backupDays: 'ημέρες καταχωρημένες',
+    backupProfiles: 'προφίλ',
+    backupLast: 'τελευταία καταχώρηση',
+    backupNone: 'καμία καταχώρηση',
+    backupSyncOn: 'Συγχρονισμένο με το cloud',
+    backupSyncOff: 'Χωρίς συγχρονισμό — μόνο σε αυτή τη συσκευή',
+    backupAccount: 'Λογαριασμός',
+    backupMerged: 'Συγχωνεύτηκαν από άλλη συσκευή',
+    backupMergedUpd: 'ενημερώθηκαν',
+    syncError: 'ΣΦΑΛΜΑ ΣΥΓΧΡΟΝΙΣΜΟΥ — τα δεδομένα μένουν μόνο εδώ',
+    syncSignedOut: 'Χωρίς σύνδεση — μόνο σε αυτή τη συσκευή',
+    syncLocalMode: 'Τοπική λειτουργία (χωρίς https)',
+    importTitle: 'Επαναφορά από αρχείο',
+    importSummary: 'Το αρχείο περιέχει',
+    importCurrent: 'Τώρα σε αυτή τη συσκευή',
+    importWarn: 'Η επαναφορά ΑΝΤΙΚΑΘΙΣΤΑ όλα τα τρέχοντα δεδομένα αυτής της συσκευής.',
+    importConfirmBtn: 'Ναι, αντικατάστησε',
+    importBad: 'Το αρχείο δεν είναι έγκυρο αντίγραφο της εφαρμογής.',
+    importOk: 'Η επαναφορά ολοκληρώθηκε.',
+    exportOk: 'Το αντίγραφο κατέβηκε.',
     resetConfirm: 'Επαναφορά όλων των δεδομένων (φίλτρα, αποθέματα, tracker); Δεν αναιρείται.',
     perWeek: 'φορές/εβδ.',
     untilTime: 'έως',
@@ -2771,6 +2669,8 @@ const I18N = {
     ateBtn: 'Complete',
     ateDone: 'Completed',
     altDinner: '🔄 Alternative dinner',
+    altBreakfast: '🔄 Alternative breakfast',
+    altMeal: '🔄 Alternative',
     details: 'Details →',
     weeklyTotal: 'Total 3 wk',
     shopNotice: 'Computed from actual 21-day consumption (after your substitutions). Check items as you buy them.',
@@ -2794,6 +2694,31 @@ const I18N = {
     close: 'Close',
     reset: '⚠ Reset',
     resetBtn: 'Reset all data',
+    backupTitle: 'Backup',
+    backupHelp: 'Download all your data to a file. Each browser keeps its own separate data — back up the one you actually use.',
+    backupExport: 'Export to file',
+    backupImport: 'Restore from file',
+    backupStats: 'On this device',
+    backupDays: 'days logged',
+    backupProfiles: 'profiles',
+    backupLast: 'last entry',
+    backupNone: 'no entries',
+    backupSyncOn: 'Synced to cloud',
+    backupSyncOff: 'Not synced — this device only',
+    backupAccount: 'Account',
+    backupMerged: 'Merged from another device',
+    backupMergedUpd: 'updated',
+    syncError: 'SYNC ERROR — data stays on this device only',
+    syncSignedOut: 'Signed out — this device only',
+    syncLocalMode: 'Local mode (no https)',
+    importTitle: 'Restore from file',
+    importSummary: 'The file contains',
+    importCurrent: 'Currently on this device',
+    importWarn: 'Restoring REPLACES all current data on this device.',
+    importConfirmBtn: 'Yes, replace',
+    importBad: 'This file is not a valid backup.',
+    importOk: 'Restore complete.',
+    exportOk: 'Backup downloaded.',
     resetConfirm: 'Reset all data (filters, inventory, tracker)? Cannot be undone.',
     perWeek: '×/wk',
     untilTime: 'until',
@@ -2995,9 +2920,16 @@ function fmtUnit(s) {
   if (!s) return '';
   const lang = state.lang || 'el';
 
+  // N/M fraction (like 3/4) φλ. τσαγιού — handle before decimal fallback
+  s = s.replace(/(\d+)\/(\d+)\s*φλ\.?\s*τσαγιο[ύυ]/g, (m, num, den) => {
+    const count = parseInt(num,10) / parseInt(den,10);
+    const ml = Math.round(count * 200);
+    const cup = (ml / 240).toFixed(2);
+    return ml + ' ml (' + cup + ' cup)';
+  });
   // φλ. τσαγιού → ml + cup (English unit terminology always)
-  s = s.replace(/(\d*[½⅓¼]|\d+(?:[\.,]\d+)?)\s*φλ\.?\s*τσαγιο[ύυ]/g, (m, n) => {
-    const count = parseFloat(n.replace('½','.5').replace('⅓','.33').replace('¼','.25').replace(',','.'));
+  s = s.replace(/(\d*[½⅓¼¾⅔]|\d+(?:[\.,]\d+)?)\s*φλ\.?\s*τσαγιο[ύυ]/g, (m, n) => {
+    const count = parseFloat(n.replace('½','.5').replace('⅓','.33').replace('¼','.25').replace('¾','.75').replace('⅔','.67').replace(',','.'));
     const ml = Math.round(count * 200);
     const cup = (ml / 240).toFixed(2);
     return ml + ' ml (' + cup + ' cup)';
@@ -3140,22 +3072,52 @@ function loadState() {
     if (st.profiles.user1 && (!st.profiles.user1.plans || st.profiles.user1.plans.length === 0) && typeof THANASIS_MENUS !== 'undefined') {
       st.profiles.user1.plans = [{
         id: 'plan_thanasis_default',
-        name: 'Πλάνο Θανάση (23 Ιουν 2026)',
+        name: 'Πλάνο Θανάση (28 Αυγ 2026)',
         menus: JSON.parse(JSON.stringify(THANASIS_MENUS)),
         weekOrder: THANASIS_WEEK_ORDER.slice(),
-        createdAt: '2026-06-23'
+        createdAt: '2026-08-28'
       }];
       st.profiles.user1.activePlanId = 'plan_thanasis_default';
     }
     if (st.profiles.user2 && (!st.profiles.user2.plans || st.profiles.user2.plans.length === 0) && typeof PAULOS_MENUS !== 'undefined') {
       st.profiles.user2.plans = [{
         id: 'plan_paulos_default',
-        name: 'Πλάνο Παύλου (19 Ιουν 2026)',
+        name: 'Πλάνο Παύλου (28 Αυγ 2026)',
         menus: JSON.parse(JSON.stringify(PAULOS_MENUS)),
         weekOrder: PAULOS_WEEK_ORDER.slice(),
-        createdAt: '2026-06-19'
+        createdAt: '2026-08-28'
       }];
       st.profiles.user2.activePlanId = 'plan_paulos_default';
+    }
+    // Migration v2: Update existing Παύλος default plan weekOrder (smoothie on work days Τρι/Πεμ/Σαβ)
+    if (st.profiles.user2 && st.profiles.user2.plans && !st.profiles.user2._weekOrderV2) {
+      const _pplan = st.profiles.user2.plans.find(p => p.id === 'plan_paulos_default');
+      if (_pplan) {
+        _pplan.weekOrder = PAULOS_WEEK_ORDER.slice();
+        st.profiles.user2._weekOrderV2 = true;
+      }
+    }
+    // Migration v3 (20 Ιουλ 2026): refresh Θανάσης default plan menus with new diet
+    if (st.profiles.user1 && st.profiles.user1.plans && !st.profiles.user1._menus28aug && typeof THANASIS_MENUS !== 'undefined') {
+      const _tplan = st.profiles.user1.plans.find(p => p.id === 'plan_thanasis_default');
+      if (_tplan) {
+        _tplan.menus = JSON.parse(JSON.stringify(THANASIS_MENUS));
+        _tplan.weekOrder = THANASIS_WEEK_ORDER.slice();
+        _tplan.name = 'Πλάνο Θανάση (28 Αυγ 2026)';
+        _tplan.createdAt = '2026-07-20';
+        st.profiles.user1._menus28aug = true;
+      }
+    }
+    // Migration v3 (20 Ιουλ 2026): refresh Παύλος default plan menus with new diet
+    if (st.profiles.user2 && st.profiles.user2.plans && !st.profiles.user2._menus28aug && typeof PAULOS_MENUS !== 'undefined') {
+      const _pplan = st.profiles.user2.plans.find(p => p.id === 'plan_paulos_default');
+      if (_pplan) {
+        _pplan.menus = JSON.parse(JSON.stringify(PAULOS_MENUS));
+        _pplan.weekOrder = PAULOS_WEEK_ORDER.slice();
+        _pplan.name = 'Πλάνο Παύλου (28 Αυγ 2026)';
+        _pplan.createdAt = '2026-07-20';
+        st.profiles.user2._menus28aug = true;
+      }
     }
   } catch(e) { console.warn('auto-seed plans failed:', e); }
   // One-shot: hide the 18 new ingredients (Θανάσης/Παύλος-specific) from Thomas's food filters
@@ -3169,6 +3131,39 @@ function loadState() {
       st.profiles.thomas._newIngsHidden_v1 = true;
     }
   } catch(e) { console.warn('hide-new-ings failed:', e); }
+  // One-shot (20 Ιουλ 2026): Θωμάς προτιμά cottage αντί για κατίκι.
+  // Το πρόγραμμα κρατά κατίκι (πιστό στη συνταγή) — η εφαρμογή εμφανίζει cottage
+  // με αυτόματη προσαρμογή λιπαρών (cheeseScaledGrams: +6γρ).
+  try {
+    if (st.profiles.thomas && !st.profiles.thomas._katikiToCottage_v1) {
+      if (!st.profiles.thomas.menuSubs) st.profiles.thomas.menuSubs = {};
+      const _ms = st.profiles.thomas.menuSubs;
+      const _spots = [['Α','dinner'],['Α','bedtime'],['Γ','breakfast'],['Γ','bedtime'],['Β+','lunch'],['Β+','bedtime'],['Γ1+','bedtime']];
+      for (const [_mk, _mid] of _spots) {
+        if (!_ms[_mk]) _ms[_mk] = {};
+        if (!_ms[_mk][_mid]) _ms[_mk][_mid] = {};
+        if (!_ms[_mk][_mid]['cheese_katiki']) _ms[_mk][_mid]['cheese_katiki'] = 'cheese_cottage';
+      }
+      if (st.profiles.thomas.filters && st.profiles.thomas.filters['cheese_cottage']) {
+        st.profiles.thomas.filters['cheese_cottage'].enabled = true;
+      }
+      st.profiles.thomas._katikiToCottage_v1 = true;
+    }
+  } catch(e) { console.warn('katiki→cottage migration failed:', e); }
+  // Δικλείδα: αν λείπουν ή είναι κατεστραμμένα τα προφίλ, ξαναχτίζουμε τον σκελετό
+  // αντί να σκάσει η εφαρμογή και να μείνει ο χρήστης με λευκή οθόνη.
+  if (!st.profiles || typeof st.profiles !== 'object' || Object.keys(st.profiles).length === 0) {
+    console.warn('state.profiles λείπει — επαναφορά σκελετού προφίλ');
+    st.profiles = {
+      thomas: { name: 'Θωμάς',   isAdmin: true,  plans: [], activePlanId: null, log: {}, filters: {}, menuSubs: {}, dietStartDate: null },
+      user1:  { name: 'Θανάσης', isAdmin: false, plans: [], activePlanId: null, log: {}, filters: {}, menuSubs: {}, dietStartDate: null },
+      user2:  { name: 'Παύλος',  isAdmin: false, plans: [], activePlanId: null, log: {}, filters: {}, menuSubs: {}, dietStartDate: null },
+      user3:  { name: 'user3',   isAdmin: false, plans: [], activePlanId: null, log: {}, filters: {}, menuSubs: {}, dietStartDate: null },
+      user4:  { name: 'user4',   isAdmin: false, plans: [], activePlanId: null, log: {}, filters: {}, menuSubs: {}, dietStartDate: null },
+    };
+  }
+  if (!st.profiles[st.activeProfileId]) st.activeProfileId = 'thomas';
+  if (!st.profiles.thomas) st.profiles.thomas = { name: 'Θωμάς', isAdmin: true, plans: [], activePlanId: null, log: {}, filters: {}, menuSubs: {}, dietStartDate: null };
   const ap = st.profiles[st.activeProfileId] || st.profiles.thomas;
   st.plans = ap.plans || [];
   st.activePlanId = ap.activePlanId || null;
@@ -3226,6 +3221,9 @@ let _cloudWriteId = '';
 let _cloudWriteTimer = null;
 let _cloudUnsub = null;
 let _origSaveState = null;
+let _cloudHealthy = false;
+let _lastMergeStats = null;  // τι πρόσθεσε η τελευταία συγχώνευση   // true ΜΟΝΟ όταν το διάβασμα από το cloud πέτυχε
+let _cloudError = null;      // το μήνυμα σφάλματος, για να φαίνεται στον χρήστη
 function _newWriteId() { return Math.random().toString(36).slice(2) + Date.now().toString(36); }
 function _hasMeaningfulData(st) {
   if (!st) return false;
@@ -3241,8 +3239,197 @@ function _hasMeaningfulData(st) {
   if ((st.customStores || []).length > 0) return true;
   return false;
 }
+
+// ============================================================================
+// ΣΥΓΧΩΝΕΥΣΗ ΤΟΠΙΚΩΝ ↔ CLOUD
+// Πριν: όποια συσκευή έγραφε τελευταία, έσβηνε τα δεδομένα της άλλης.
+// Τώρα: ενώνονται. Καμία καταχώρηση δεν χάνεται, από καμία συσκευή.
+// ============================================================================
+
+// Πόσο «γεμάτη» είναι μια ημερήσια εγγραφή — για να ξέρουμε ποια υπερισχύει
+// όταν το ίδιο πεδίο έχει διαφορετική τιμή στις δύο πλευρές.
+function _entryRichness(e) {
+  if (!e) return -1;
+  let r = 0;
+  if (e.meals) for (const k of Object.keys(e.meals)) if (e.meals[k]) r++;
+  if (e.mealAtTime) r += Object.keys(e.mealAtTime).length;
+  if (e.water) r++;
+  if (e.weight != null) r++;
+  if (e.notes) r++;
+  if (e.tea) r++;
+  if (e.subs) r += Object.keys(e.subs).length;
+  return r;
+}
+
+// Ένωση δύο εγγραφών της ίδιας ημέρας.
+function _mergeDayEntry(a, b) {
+  if (!a) return b;
+  if (!b) return a;
+  const primary = _entryRichness(a) >= _entryRichness(b) ? a : b;
+  const other = (primary === a) ? b : a;
+  const out = Object.assign({}, other, primary);
+
+  // Αντικείμενα: ένωση κλειδιών, με προτεραιότητα στην πληρέστερη πλευρά
+  for (const key of ['mealAtTime', 'subs', 'textSubs']) {
+    if (a[key] || b[key]) out[key] = Object.assign({}, other[key] || {}, primary[key] || {});
+  }
+  // Τσεκαρισμένα γεύματα: ένα «ναι» από οποιαδήποτε συσκευή αρκεί
+  if (a.meals || b.meals) {
+    out.meals = {};
+    for (const k of new Set([].concat(Object.keys(a.meals || {}), Object.keys(b.meals || {})))) {
+      out.meals[k] = !!((a.meals && a.meals[k]) || (b.meals && b.meals[k]));
+    }
+  }
+  // Οι αφαιρέσεις αποθέματος ΔΕΝ ενώνονται — θα διπλομετρούσαν
+  out.deducted = primary.deducted || other.deducted;
+
+  out.water = Math.max(a.water || 0, b.water || 0);
+  out.weight = (primary.weight != null) ? primary.weight : (other.weight != null ? other.weight : null);
+  out.notes = primary.notes || other.notes || '';
+  out.tea = !!(a.tea || b.tea);
+  if (Array.isArray(primary.mealOrder) || Array.isArray(other.mealOrder)) {
+    out.mealOrder = primary.mealOrder || other.mealOrder;
+  }
+  return out;
+}
+
+function _uniqBy(arr, keyFn) {
+  const seen = new Set(), out = [];
+  for (const x of arr) {
+    const k = keyFn(x);
+    if (!seen.has(k)) { seen.add(k); out.push(x); }
+  }
+  return out;
+}
+
+// Επιστρέφει {state, stats}. Βάση το cloud, προστίθεται ό,τι έχει μόνο το τοπικό.
+function _mergeStates(local, cloud) {
+  const stats = { addedDays: 0, mergedDays: 0, addedProfiles: 0, addedPurchases: 0 };
+  if (!cloud) return { state: local, stats };
+  if (!local) return { state: cloud, stats };
+  const out = JSON.parse(JSON.stringify(cloud));
+  out.profiles = out.profiles || {};
+
+  for (const pid of Object.keys(local.profiles || {})) {
+    const lp = local.profiles[pid];
+    if (!out.profiles[pid]) {
+      out.profiles[pid] = JSON.parse(JSON.stringify(lp));
+      stats.addedProfiles++;
+      continue;
+    }
+    const cp = out.profiles[pid];
+    cp.log = cp.log || {};
+    const ll = lp.log || {};
+    for (const d of Object.keys(ll)) {
+      if (!cp.log[d]) {
+        cp.log[d] = JSON.parse(JSON.stringify(ll[d]));
+        stats.addedDays++;
+      } else {
+        const before = JSON.stringify(cp.log[d]);
+        cp.log[d] = _mergeDayEntry(ll[d], cp.log[d]);
+        if (JSON.stringify(cp.log[d]) !== before) stats.mergedDays++;
+      }
+    }
+    // Ρυθμίσεις: ένωση· τα κλειδιά που υπάρχουν μόνο τοπικά διατηρούνται
+    for (const key of ['filters', 'menuSubs']) {
+      cp[key] = Object.assign({}, lp[key] || {}, cp[key] || {});
+    }
+    if (!cp.plans || cp.plans.length === 0) cp.plans = lp.plans || [];
+    if (!cp.activePlanId) cp.activePlanId = lp.activePlanId || null;
+    if (!cp.dietStartDate) cp.dietStartDate = lp.dietStartDate || null;
+    if (!cp.name && lp.name) cp.name = lp.name;
+    // Σημαίες migration: ό,τι έχει τρέξει τοπικά δεν ξανατρέχει
+    for (const k of Object.keys(lp)) {
+      if (k.charAt(0) === '_' && cp[k] === undefined) cp[k] = lp[k];
+    }
+  }
+
+  // Καθολικά αντικείμενα
+  for (const key of ['inventory', 'packs', 'itemStores']) {
+    out[key] = Object.assign({}, local[key] || {}, out[key] || {});
+  }
+  // Αγορές: ένωση χωρίς διπλοεγγραφές
+  const beforeP = (out.purchases || []).length;
+  out.purchases = _uniqBy([].concat(out.purchases || [], local.purchases || []),
+                          p => JSON.stringify([p && p.date, p && p.id, p && p.grams, p && p.price]));
+  stats.addedPurchases = out.purchases.length - beforeP;
+  // Προσαρμοσμένες λίστες
+  out.customIngredients = _uniqBy([].concat(out.customIngredients || [], local.customIngredients || []),
+                                  x => x && x.id);
+  out.customStores = _uniqBy([].concat(out.customStores || [], local.customStores || []),
+                             x => x && x.id);
+  return { state: out, stats };
+}
+
+function _mergeChanged(st) {
+  return !!(st.addedDays || st.mergedDays || st.addedProfiles || st.addedPurchases);
+}
+
 function _applyCloudState(cloudState) {
   for (const k of Object.keys(cloudState)) state[k] = cloudState[k];
+  // Re-run rename migration (cloud may carry legacy generic names)
+  if (state.profiles) {
+    if (state.profiles.user1 && (state.profiles.user1.name === 'user1' || state.profiles.user1.name === 'User 1' || state.profiles.user1.name === 'Χρήστης 1')) state.profiles.user1.name = 'Θανάσης';
+    if (state.profiles.user2 && (state.profiles.user2.name === 'user2' || state.profiles.user2.name === 'User 2' || state.profiles.user2.name === 'Χρήστης 2')) state.profiles.user2.name = 'Παύλος';
+    // Auto-seed plans if missing (typeof check guards for pre-load ordering)
+    try {
+      if (state.profiles.user1 && (!state.profiles.user1.plans || state.profiles.user1.plans.length === 0) && typeof THANASIS_MENUS !== 'undefined') {
+        state.profiles.user1.plans = [{ id: 'plan_thanasis_default', name: 'Πλάνο Θανάση (28 Αυγ 2026)', menus: JSON.parse(JSON.stringify(THANASIS_MENUS)), weekOrder: THANASIS_WEEK_ORDER.slice(), createdAt: '2026-08-28' }];
+        state.profiles.user1.activePlanId = 'plan_thanasis_default';
+      }
+      if (state.profiles.user2 && (!state.profiles.user2.plans || state.profiles.user2.plans.length === 0) && typeof PAULOS_MENUS !== 'undefined') {
+        state.profiles.user2.plans = [{ id: 'plan_paulos_default', name: 'Πλάνο Παύλου (28 Αυγ 2026)', menus: JSON.parse(JSON.stringify(PAULOS_MENUS)), weekOrder: PAULOS_WEEK_ORDER.slice(), createdAt: '2026-08-28' }];
+        state.profiles.user2.activePlanId = 'plan_paulos_default';
+      }
+      // Migration v2 (cloud): update existing Παύλος weekOrder
+      if (state.profiles.user2 && state.profiles.user2.plans && !state.profiles.user2._weekOrderV2) {
+        const _pplan = state.profiles.user2.plans.find(p => p.id === 'plan_paulos_default');
+        if (_pplan) {
+          _pplan.weekOrder = PAULOS_WEEK_ORDER.slice();
+          state.profiles.user2._weekOrderV2 = true;
+        }
+      }
+      // Migration v3 (cloud, 20 Ιουλ 2026): refresh Θανάσης menus
+      if (state.profiles.user1 && state.profiles.user1.plans && !state.profiles.user1._menus28aug && typeof THANASIS_MENUS !== 'undefined') {
+        const _tplan = state.profiles.user1.plans.find(p => p.id === 'plan_thanasis_default');
+        if (_tplan) {
+          _tplan.menus = JSON.parse(JSON.stringify(THANASIS_MENUS));
+          _tplan.weekOrder = THANASIS_WEEK_ORDER.slice();
+          _tplan.name = 'Πλάνο Θανάση (28 Αυγ 2026)';
+          _tplan.createdAt = '2026-07-20';
+          state.profiles.user1._menus28aug = true;
+        }
+      }
+      // Migration v3 (cloud, 20 Ιουλ 2026): refresh Παύλος menus
+      if (state.profiles.user2 && state.profiles.user2.plans && !state.profiles.user2._menus28aug && typeof PAULOS_MENUS !== 'undefined') {
+        const _pplan = state.profiles.user2.plans.find(p => p.id === 'plan_paulos_default');
+        if (_pplan) {
+          _pplan.menus = JSON.parse(JSON.stringify(PAULOS_MENUS));
+          _pplan.weekOrder = PAULOS_WEEK_ORDER.slice();
+          _pplan.name = 'Πλάνο Παύλου (28 Αυγ 2026)';
+          _pplan.createdAt = '2026-07-20';
+          state.profiles.user2._menus28aug = true;
+        }
+      }
+    } catch(e) { console.warn('cloud auto-seed failed:', e); }
+  }
+  // One-shot (cloud): Θωμάς κατίκι → cottage
+  try {
+    if (state.profiles && state.profiles.thomas && !state.profiles.thomas._katikiToCottage_v1) {
+      if (!state.profiles.thomas.menuSubs) state.profiles.thomas.menuSubs = {};
+      const _ms = state.profiles.thomas.menuSubs;
+      const _spots = [['Α','dinner'],['Α','bedtime'],['Γ','breakfast'],['Γ','bedtime'],['Β+','lunch'],['Β+','bedtime'],['Γ1+','bedtime']];
+      for (const [_mk, _mid] of _spots) {
+        if (!_ms[_mk]) _ms[_mk] = {};
+        if (!_ms[_mk][_mid]) _ms[_mk][_mid] = {};
+        if (!_ms[_mk][_mid]['cheese_katiki']) _ms[_mk][_mid]['cheese_katiki'] = 'cheese_cottage';
+      }
+      if (state.profiles.thomas.filters && state.profiles.thomas.filters['cheese_cottage']) {
+        state.profiles.thomas.filters['cheese_cottage'].enabled = true;
+      }
+      state.profiles.thomas._katikiToCottage_v1 = true;
+    }
+  } catch(e) { console.warn('cloud katiki→cottage failed:', e); }
   const ap = state.profiles && state.profiles[state.activeProfileId];
   if (ap) {
     state.plans = ap.plans || [];
@@ -3256,12 +3443,20 @@ function _applyCloudState(cloudState) {
 }
 async function _pushStateToCloud() {
   if (!_cloudDocRef) return;
+  // ΚΡΙΣΙΜΟ: αν δεν καταφέραμε ποτέ να διαβάσουμε το cloud, δεν ξέρουμε τι υπάρχει εκεί.
+  // Το να γράψουμε από πάνω θα μπορούσε να σβήσει δεδομένα άλλης συσκευής.
+  if (!_cloudHealthy) { console.warn('push ακυρώθηκε — ο συγχρονισμός δεν είναι υγιής'); return; }
   if (typeof snapshotActiveProfile === 'function') snapshotActiveProfile();
   if (!_hasMeaningfulData(state)) return; // never push empty/factory state
   _cloudWriteId = _newWriteId();
   const payload = JSON.parse(JSON.stringify(state));
-  try { await window.fbSetDoc(_cloudDocRef, {state: payload, lastWrite: _cloudWriteId, ts: Date.now()}); }
-  catch(e) { console.error('cloud sync push failed:', e); }
+  try { await window.fbSetDoc(_cloudDocRef, {state: payload, lastWrite: _cloudWriteId, ts: Date.now()}); _cloudError = null; }
+  catch(e) {
+    _cloudHealthy = false;
+    _cloudError = (e && (e.code || e.message)) ? String(e.code || e.message) : 'unknown';
+    console.error('cloud sync push failed:', e);
+    if (typeof renderProfileBar === 'function') renderProfileBar();
+  }
 }
 async function setupCloudSync(user) {
   if (_cloudSyncSetUp) return;
@@ -3273,14 +3468,30 @@ async function setupCloudSync(user) {
     const cloudState = snap.exists() && snap.data() && snap.data().state ? snap.data().state : null;
     const cloudHas = _hasMeaningfulData(cloudState);
     const localHas = _hasMeaningfulData(state);
-    if (cloudHas) {
+    _cloudHealthy = true;   // η ανάγνωση πέτυχε — από εδώ και πέρα το push είναι ασφαλές
+    _cloudError = null;
+    if (cloudHas && localHas) {
+      // Και οι δύο πλευρές έχουν δεδομένα — τα ενώνουμε αντί να διαλέξουμε μία.
+      const m = _mergeStates(state, cloudState);
+      _applyCloudState(m.state);
+      if (typeof applyActivePlan === 'function') applyActivePlan();
+      if (_mergeChanged(m.stats)) {
+        console.log('συγχώνευση με cloud:', JSON.stringify(m.stats));
+        _lastMergeStats = m.stats;
+        await _pushStateToCloud();   // το cloud δεν είχε όλα — του τα στέλνουμε
+      }
+    } else if (cloudHas) {
       _applyCloudState(cloudState);
       if (typeof applyActivePlan === 'function') applyActivePlan();
     } else if (localHas) {
       await _pushStateToCloud();
     }
     // both empty → wait for real data before syncing
-  } catch(e) { console.error('cloud sync initial failed:', e); }
+  } catch(e) {
+    _cloudHealthy = false;
+    _cloudError = (e && (e.code || e.message)) ? String(e.code || e.message) : 'unknown';
+    console.error('cloud sync initial failed:', e);
+  }
   initialDone = true;
   if (typeof render === 'function') render();
   if (typeof renderProfileBar === 'function') renderProfileBar();
@@ -3291,7 +3502,15 @@ async function setupCloudSync(user) {
     const d = snap.data();
     if (!d || !d.state) return;
     if (d.lastWrite === _cloudWriteId) return; // ignore own write echo
-    _applyCloudState(d.state);
+    // Αλλαγή από άλλη συσκευή: ενώνουμε, δεν αντικαθιστούμε — αλλιώς θα
+    // χάνονταν ό,τι καταχωρήθηκε εδώ στο ενδιάμεσο.
+    const m = _mergeStates(state, d.state);
+    _applyCloudState(m.state);
+    if (_mergeChanged(m.stats)) {
+      console.log('συγχώνευση από άλλη συσκευή:', JSON.stringify(m.stats));
+      _lastMergeStats = m.stats;
+      _pushStateToCloud();   // συγκλίνει: μόλις οι δύο πλευρές ταυτιστούν, σταματά
+    }
     if (typeof applyActivePlan === 'function') applyActivePlan();
     if (typeof render === 'function') render();
     if (typeof renderProfileBar === 'function') renderProfileBar();
@@ -3306,7 +3525,14 @@ async function setupCloudSync(user) {
     };
   }
 }
+function cloudStatus() {
+  if (!authEnabled()) return {kind:'local',  label: T('syncLocalMode')};
+  if (!window.fbUser)  return {kind:'off',    label: T('syncSignedOut')};
+  if (!_cloudHealthy)  return {kind:'error',  label: T('syncError') + (_cloudError ? ' (' + _cloudError + ')' : '')};
+  return {kind:'ok', label: window.fbUser.email || T('cloudConnected')};
+}
 function teardownCloudSync() {
+  _cloudHealthy = false; _cloudError = null;
   if (_cloudUnsub) try { _cloudUnsub(); } catch(e){}
   _cloudUnsub = null;
   _cloudDocRef = null;
@@ -3433,7 +3659,10 @@ function renderProfileBar() {
     return `<option value="${id}" ${sel}>${p.name}${adm}</option>`;
   }).join('');
   const u = window.fbUser;
-  const cloud = u ? `<span class="profile-cloud-badge" title="${u.email || ''}">☁ ${T('cloudConnected')}</span><button class="profile-edit-btn" onclick="handleSignOut()" title="${T('loginSignOutBtn')}">⎋</button>` : '';
+  const _cs = cloudStatus();
+  const _csCol = _cs.kind === 'ok' ? '' : 'background:var(--red);color:#fff;border-color:var(--red)';
+  const _csIcon = _cs.kind === 'ok' ? '☁' : '⚠';
+  const cloud = u ? `<span class="profile-cloud-badge" title="${_cs.label}" style="max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;${_csCol}">${_csIcon} ${_cs.label}</span><button class="profile-edit-btn" onclick="handleSignOut()" title="${T('loginSignOutBtn')}">⎋</button>` : '';
   bar.innerHTML = `<span class="profile-icon">👤</span>
     <select id="profileSelect" onchange="switchProfile(this.value)">${opts}</select>
     <button class="profile-edit-btn" onclick="renameActiveProfile()" title="${T('renameProfileTitle')}">✎</button>
@@ -4294,6 +4523,11 @@ function setMenuSub(menuKey, mealId, origIngId, newIngId) {
     state.menuSubs[menuKey][mealId][origIngId] = newIngId;
   } else {
     delete state.menuSubs[menuKey][mealId][origIngId];
+    // Ρητή επιλογή του αρχικού τροφίμου: αν είναι απενεργοποιημένο στα φίλτρα,
+    // το ξανα-ενεργοποιούμε — αλλιώς το resolveIngredient θα το αντικαθιστούσε αμέσως.
+    if (newIngId === origIngId && state.filters && state.filters[origIngId]) {
+      state.filters[origIngId].enabled = true;
+    }
   }
   saveState();
   closeModal();
@@ -4315,10 +4549,13 @@ function setDailySubstitute(dateISO, mealId, origIngId, newIngId) {
   if (!state.log[dateISO]) state.log[dateISO] = {meals:{}, water:0, weight:null, notes:'', tea:false};
   if (!state.log[dateISO].subs) state.log[dateISO].subs = {};
   if (!state.log[dateISO].subs[mealId]) state.log[dateISO].subs[mealId] = {};
-  if (newIngId) {
+  if (newIngId && newIngId !== origIngId) {
     state.log[dateISO].subs[mealId][origIngId] = newIngId;
   } else {
     delete state.log[dateISO].subs[mealId][origIngId];
+    if (newIngId === origIngId && state.filters && state.filters[origIngId]) {
+      state.filters[origIngId].enabled = true;
+    }
   }
   // Clear any text sub for this slot
   if (state.log[dateISO].textSubs && state.log[dateISO].textSubs[mealId]) {
@@ -5097,11 +5334,11 @@ function viewDay() {
         <button class="btn btn-ghost btn-sm" onclick="openAddExtraModal('${dateISO}', '${mt.id}')">➕ ${T('addExtraBtn')}</button>
         ${RECIPES[meal.name] ? `<button class="expand-btn" onclick="showRecipe('${meal.name}')">${T('recipeBtn')}</button>` : ''}
       </div>
-      ${meal.altDinner ? `
+${ALT_KEYS.map(ak => meal[ak] ? `
         <div class="recipe">
-          <h4>${T('altDinner')}: ${mealName(meal.altDinner)}</h4>
-          <div>${meal.altDinner.items.map(it => renderItem(it, mt.id, dateISO)).filter(s => s !== '').join(' · ')}</div>
-        </div>` : ''}
+          <h4>${T(ak === 'altDinner' ? 'altDinner' : ak === 'altBreakfast' ? 'altBreakfast' : 'altMeal')}: ${mealName(meal[ak])}</h4>
+          <div>${meal[ak].items.map(it => renderItem(it, mt.id, dateISO)).filter(s => s !== '').join(' · ')}</div>
+        </div>` : '').join('')}
     </div>`;
   }
 
@@ -6009,15 +6246,9 @@ function viewSettings() {
     ${state.dietStartDate ? `<button class="btn btn-ghost btn-sm" style="margin-left:8px" onclick="setDietStartDate(null)">↺ ${T('reset')}</button>` : ''}
   </div>`;
 
-  // Backup / Transfer
-  html += `<div class="card">
-    <h3 style="margin:0 0 8px;font-size:14px;color:var(--navy)">💾 ${T('exportImportCard')}</h3>
-    <div class="subtle" style="margin-bottom:10px">${T('exportImportHelp')}</div>
-    <div class="btn-row">
-      <button class="btn btn-block" onclick="exportAllData()">⬇ ${T('exportDataBtn')}</button>
-      <button class="btn btn-ghost btn-block" onclick="triggerImportData()">⬆ ${T('importDataBtn')}</button>
-    </div>
-  </div>`;
+  // (Η παλιά κάρτα «Backup / Transfer» αφαιρέθηκε — αντικαταστάθηκε από την κάρτα
+  //  «Αντίγραφο ασφαλείας» παρακάτω, που δείχνει σύνοψη, ελέγχει το αρχείο και
+  //  επαναφέρει την προηγούμενη κατάσταση αν η εισαγωγή αποτύχει.)
 
   // Compare foods
   html += `<div class="card">
@@ -6142,6 +6373,24 @@ function viewSettings() {
     </div>`;
   }
   html += `<button class="btn btn-block" style="margin-top:10px" onclick="addCustomStore()">➕ ${T('addStore')}</button></div>`;
+
+  // Backup section
+  const _bs = backupStats();
+  html += `<div class="card">
+    <h3 style="margin:0 0 10px;font-size:14px;color:var(--navy)">💾 ${T('backupTitle')}</h3>
+    <div class="subtle" style="margin-bottom:10px">${T('backupHelp')}</div>
+    <div class="subtle" style="margin-bottom:10px;padding:8px 10px;background:var(--bg);border-radius:8px;border:1px solid var(--border)">
+      <div><strong>${T('backupStats')}:</strong> ${_bs.days} ${T('backupDays')} · ${_bs.profiles} ${T('backupProfiles')}</div>
+      <div style="margin-top:3px">${_bs.last ? T('backupLast') + ': ' + _bs.last : T('backupNone')}</div>
+      <div style="margin-top:5px;font-weight:700;color:${_bs.synced ? 'var(--green)' : 'var(--orange)'}">
+        ${_bs.synced ? '☁ ' + T('backupSyncOn') : '⚠ ' + (_bs.syncError ? T('syncError') + ' (' + _bs.syncError + ')' : T('backupSyncOff'))}</div>
+      ${_bs.account ? `<div style="margin-top:3px;word-break:break-all"><strong>${T('backupAccount')}:</strong> ${_bs.account}</div>` : ''}
+      ${(_bs.merge && (_bs.merge.addedDays || _bs.merge.mergedDays)) ? `<div style="margin-top:5px;color:var(--green)">\u21c4 ${T('backupMerged')}: +${_bs.merge.addedDays} ${T('backupDays')}, ${_bs.merge.mergedDays} ${T('backupMergedUpd')}</div>` : ''}
+    </div>
+    <button class="btn btn-block" onclick="exportBackup()">⬇ ${T('backupExport')}</button>
+    <input type="file" id="backupFileInput" accept="application/json,.json" style="display:none" onchange="importBackupFile(this)">
+    <button class="btn btn-secondary btn-block" style="margin-top:8px" onclick="document.getElementById('backupFileInput').click()">⬆ ${T('backupImport')}</button>
+  </div>`;
 
   // Reset section
   html += `<div class="card">
@@ -6836,6 +7085,143 @@ function setNotes(val) {
   saveState();
 }
 
+// ============================================================================
+// BACKUP / RESTORE — εξαγωγή και επαναφορά όλων των δεδομένων σε αρχείο JSON
+// ============================================================================
+const BACKUP_FORMAT = 'omioastasis-backup';
+const BACKUP_VERSION = 1;
+
+// Σύνοψη όσων υπάρχουν σε ΑΥΤΗ τη συσκευή (για την κάρτα Ρυθμίσεων)
+function backupStats(st) {
+  const s = st || state;
+  const profs = s.profiles || {};
+  let days = new Set(), profiles = 0, last = null;
+  for (const id of Object.keys(profs)) {
+    const ap = profs[id] || {};
+    const lg = ap.log || {};
+    const keys = Object.keys(lg);
+    if (keys.length) profiles++;   // μόνο όσα έχουν πραγματικές καταχωρήσεις
+    for (const d of keys) { days.add(d); if (!last || d > last) last = d; }
+  }
+  return {
+    days: days.size, profiles,
+    last, synced: (typeof _cloudHealthy !== 'undefined') && _cloudHealthy,
+    syncError: (typeof _cloudError !== 'undefined') ? _cloudError : null,
+    account: (typeof window !== 'undefined' && window.fbUser && window.fbUser.email) ? window.fbUser.email : null,
+    merge: (typeof _lastMergeStats !== 'undefined') ? _lastMergeStats : null,
+    inventory: Object.keys(s.inventory || {}).length,
+    purchases: (s.purchases || []).length,
+  };
+}
+
+function exportBackup() {
+  try {
+    if (typeof snapshotActiveProfile === 'function') snapshotActiveProfile();
+    const payload = {
+      format: BACKUP_FORMAT,
+      version: BACKUP_VERSION,
+      exportedAt: new Date().toISOString(),
+      appUrl: (typeof location !== 'undefined' && location.href) ? location.href : '',
+      userAgent: (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : '',
+      stats: backupStats(),
+      state: JSON.parse(JSON.stringify(state)),
+    };
+    const d = new Date();
+    const pad = x => String(x).padStart(2, '0');
+    const name = 'omioostasis-backup-' + d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate())
+                 + '-' + pad(d.getHours()) + pad(d.getMinutes()) + '.json';
+    const blob = new Blob([JSON.stringify(payload, null, 1)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); if (a.parentNode) a.parentNode.removeChild(a); }, 1000);
+    if (typeof toast === 'function') toast('✓ ' + T('exportOk')); else alert('✓ ' + T('exportOk'));
+  } catch (e) {
+    console.error('export failed:', e);
+    alert('Export failed: ' + e.message);
+  }
+}
+
+// Δέχεται είτε το πλήρες αρχείο αντιγράφου είτε σκέτο state (ανεκτικό στο σχήμα)
+function _looksLikeState(x) {
+  return !!(x && typeof x === 'object' && x.profiles && typeof x.profiles === 'object'
+            && Object.keys(x.profiles).length > 0
+            && Object.values(x.profiles).every(p => p && typeof p === 'object'));
+}
+function _extractBackupState(obj) {
+  if (!obj || typeof obj !== 'object') return null;
+  const cands = [];
+  if (obj.format === BACKUP_FORMAT && obj.state) cands.push(obj.state);
+  if (obj.state) cands.push(obj.state);   // έγγραφο Firestore
+  cands.push(obj);                        // σκέτο state
+  for (const c of cands) if (_looksLikeState(c)) return c;
+  return null;
+}
+
+function importBackupFile(input) {
+  const file = input && input.files && input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    input.value = '';  // ώστε να ξαναδουλεύει με το ίδιο αρχείο
+    let parsed = null;
+    try { parsed = JSON.parse(reader.result); } catch (e) { alert(T('importBad')); return; }
+    const incoming = _extractBackupState(parsed);
+    if (!incoming) { alert(T('importBad')); return; }
+    const inc = backupStats(incoming), cur = backupStats();
+    const when = parsed.exportedAt ? new Date(parsed.exportedAt).toLocaleString() : '—';
+    const row = (lbl, st, extra) => `<div style="padding:8px 10px;background:var(--bg);border-radius:8px;border:1px solid var(--border);margin-bottom:8px">
+        <div style="font-weight:700">${lbl}</div>
+        <div class="subtle">${st.days} ${T('backupDays')} · ${st.profiles} ${T('backupProfiles')}</div>
+        <div class="subtle">${st.last ? T('backupLast') + ': ' + st.last : T('backupNone')}</div>
+        ${extra ? `<div class="subtle">${extra}</div>` : ''}
+      </div>`;
+    window.__pendingImport = incoming;
+    document.getElementById('modalContainer').innerHTML = `<div class="modal-backdrop" onclick="closeModal(event)">
+      <div class="modal" onclick="event.stopPropagation()">
+        <h2>⬆ ${T('importTitle')}</h2>
+        ${row('📄 ' + T('importSummary'), inc, when)}
+        ${row('📱 ' + T('importCurrent'), cur, '')}
+        <div style="padding:10px;border-radius:8px;background:rgba(220,80,60,.12);color:var(--red);font-weight:700;margin-bottom:12px">
+          ⚠ ${T('importWarn')}</div>
+        <button class="btn btn-block" style="background:var(--red);border-color:var(--red)" onclick="confirmImportBackup()">${T('importConfirmBtn')}</button>
+        <button class="btn btn-secondary btn-block" style="margin-top:8px" onclick="closeModal()">${T('cancel')}</button>
+      </div></div>`;
+  };
+  reader.onerror = () => { alert(T('importBad')); };
+  reader.readAsText(file);
+}
+
+function confirmImportBackup() {
+  const incoming = window.__pendingImport;
+  if (!incoming) return;
+  const _prev = localStorage.getItem('omioastasis_state');  // δίχτυ ασφαλείας
+  try {
+    localStorage.setItem('omioastasis_state', JSON.stringify(incoming));
+    state = loadState();
+    if (typeof applyActivePlan === 'function') applyActivePlan();
+    saveState();
+    window.__pendingImport = null;
+    closeModal();
+    render();
+    if (typeof renderProfileBar === 'function') renderProfileBar();
+    if (typeof toast === 'function') toast('✓ ' + T('importOk')); else alert(T('importOk'));
+  } catch (e) {
+    // Επαναφορά της προηγούμενης κατάστασης — καλύτερα τα παλιά δεδομένα παρά κανένα.
+    console.error('import failed, rolling back:', e);
+    try {
+      if (_prev !== null) localStorage.setItem('omioastasis_state', _prev);
+      else localStorage.removeItem('omioastasis_state');
+      state = loadState();
+      if (typeof applyActivePlan === 'function') applyActivePlan();
+      render();
+    } catch (e2) { console.error('rollback failed:', e2); }
+    closeModal();
+    alert(T('importBad'));
+  }
+}
+
 function resetAll() {
   if (!confirm(T('resetConfirm'))) return;
   localStorage.removeItem('omioastasis_state');
@@ -7030,7 +7416,9 @@ function openMenuSubModal(origIngId, mealId, menuKey) {
   const explicitEntries = altEntriesExplicit(origIngId, _item);
   let alts;
   if (isCheese) {
-    alts = allIngredients().filter(i => i.cat === 'cheese' && i.id !== origIngId && isEnabled(i.id));
+    // Το ΑΡΧΙΚΟ τυρί του προγράμματος μπαίνει πάντα στη λίστα — ακόμη κι αν είναι
+    // απενεργοποιημένο στα φίλτρα — ώστε να μπορεί πάντα να επιλεγεί ξανά.
+    alts = allIngredients().filter(i => i.cat === 'cheese' && (i.id === origIngId || isEnabled(i.id)));
   } else {
     alts = allIngredients().filter(i =>
       i.id === origIngId ? true
@@ -7066,10 +7454,12 @@ function openMenuSubModal(origIngId, mealId, menuKey) {
       if (!members.length) continue;
       html += `<div class="subtle" style="margin:10px 0 4px;font-weight:600;color:var(--navy)">\ud83e\uddc0 ${cgNames[grp] || grp}</div>`;
       for (const alt of members) {
-        const sel = cur === alt.id ? 'selected' : '';
-        const scaled = origGrams ? cheeseScaledGrams(origIngId, alt.id, origGrams) : 0;
+        const isOrig = alt.id === origIngId;
+        const sel = (isOrig ? !cur : cur === alt.id) ? 'selected' : '';
+        const scaled = (!isOrig && origGrams) ? cheeseScaledGrams(origIngId, alt.id, origGrams) : 0;
+        const badge = isOrig ? ` <span style="font-size:11px;color:var(--accent);font-weight:700">(${T('origBadge')})</span>` : '';
         html += `<div class="alt-option ${sel}" onclick="setMenuSub('${menuKey}','${mealId}','${origIngId}','${alt.id}')">
-          <div><strong>${ingName(alt)}</strong>${scaled ? ` <span style="color:var(--orange);font-weight:700">\u2192 ${scaled} g</span>` : ''}</div>
+          <div><strong>${ingName(alt)}</strong>${badge}${scaled ? ` <span style="color:var(--orange);font-weight:700">\u2192 ${scaled} g</span>` : ''}</div>
           <span>${sel ? '\u2713' : ''}</span></div>`;
       }
     }
@@ -7109,7 +7499,9 @@ function openIngredientSubModal(origIngId, mealId, dateISO) {
   // - Else: same group, enabled
   let alts;
   if (isCheese) {
-    alts = allIngredients().filter(i => i.cat === 'cheese' && i.id !== origIngId && isEnabled(i.id));
+    // Το ΑΡΧΙΚΟ τυρί του προγράμματος μπαίνει πάντα στη λίστα — ακόμη κι αν είναι
+    // απενεργοποιημένο στα φίλτρα — ώστε να μπορεί πάντα να επιλεγεί ξανά.
+    alts = allIngredients().filter(i => i.cat === 'cheese' && (i.id === origIngId || isEnabled(i.id)));
   } else {
     alts = allIngredients().filter(i =>
       i.id === origIngId ? true
@@ -7158,10 +7550,12 @@ function openIngredientSubModal(origIngId, mealId, dateISO) {
         if (members.length === 0) continue;
         html += `<div class="subtle" style="margin:10px 0 4px;font-weight:600;color:var(--navy)">🧀 ${cgNames[grp] || grp}</div>`;
         for (const alt of members) {
-          const sel = currentSub === alt.id ? 'selected' : '';
-          const scaled = origGrams ? cheeseScaledGrams(origIngId, alt.id, origGrams) : 0;
+          const isOrig = alt.id === origIngId;
+          const sel = (isOrig ? !currentSub : currentSub === alt.id) ? 'selected' : '';
+          const scaled = (!isOrig && origGrams) ? cheeseScaledGrams(origIngId, alt.id, origGrams) : 0;
+          const badge = isOrig ? ` <span style="font-size:11px;color:var(--accent);font-weight:700">(${T('origBadge')})</span>` : '';
           html += `<div class="alt-option ${sel}" onclick="setDailySubstitute('${dateISO}', '${mealId}', '${origIngId}', '${alt.id}')">
-            <div><strong>${ingName(alt)}</strong>${scaled ? ` <span style="color:var(--orange);font-weight:700">→ ${scaled} g</span>` : ''}
+            <div><strong>${ingName(alt)}</strong>${badge}${scaled ? ` <span style="color:var(--orange);font-weight:700">→ ${scaled} g</span>` : ''}
               ${alt.n100 ? `<div class="pct">${alt.n100[0]} kcal · ${alt.n100[2]}g protein · ${alt.n100[3]}g fat /100g</div>` : ''}
             </div>
             <span>${sel ? '✓' : ''}</span>
