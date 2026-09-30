@@ -3142,7 +3142,8 @@ function loadState() {
       for (const [_mk, _mid] of _spots) {
         if (!_ms[_mk]) _ms[_mk] = {};
         if (!_ms[_mk][_mid]) _ms[_mk][_mid] = {};
-        if (!_ms[_mk][_mid]['cheese_katiki']) _ms[_mk][_mid]['cheese_katiki'] = 'cheese_cottage';
+        // undefined = δεν αποφασίστηκε ποτέ · null = ο χρήστης διάλεξε ρητά το κατίκι
+        if (_ms[_mk][_mid]['cheese_katiki'] === undefined) _ms[_mk][_mid]['cheese_katiki'] = 'cheese_cottage';
       }
       if (st.profiles.thomas.filters && st.profiles.thomas.filters['cheese_cottage']) {
         st.profiles.thomas.filters['cheese_cottage'].enabled = true;
@@ -3293,6 +3294,36 @@ function _mergeDayEntry(a, b) {
   return out;
 }
 
+// Ένωση ενός επιπέδου: όλα τα κλειδιά και από τις δύο πλευρές· σε σύγκρουση
+// τιμής κερδίζει η πιο πρόσφατη πλευρά.
+function _mergeLeaf(local, cloud, localNewer) {
+  const out = {};
+  const keys = new Set([].concat(Object.keys(local || {}), Object.keys(cloud || {})));
+  for (const k of keys) {
+    const inL = local && Object.prototype.hasOwnProperty.call(local, k);
+    const inC = cloud && Object.prototype.hasOwnProperty.call(cloud, k);
+    if (inL && inC) out[k] = localNewer ? local[k] : cloud[k];
+    else out[k] = inL ? local[k] : cloud[k];
+  }
+  return out;
+}
+
+// Ένωση τριών επιπέδων για τις υποκαταστάσεις: μενού → γεύμα → τρόφιμο.
+// Το null στο τρίτο επίπεδο είναι έγκυρη τιμή («χωρίς υποκατάσταση»), όχι απουσία.
+function _mergeSubs(local, cloud, localNewer) {
+  const out = {};
+  const menus = new Set([].concat(Object.keys(local || {}), Object.keys(cloud || {})));
+  for (const mk of menus) {
+    const lm = (local || {})[mk] || {}, cm = (cloud || {})[mk] || {};
+    out[mk] = {};
+    const meals = new Set([].concat(Object.keys(lm), Object.keys(cm)));
+    for (const mid of meals) {
+      out[mk][mid] = _mergeLeaf(lm[mid], cm[mid], localNewer);
+    }
+  }
+  return out;
+}
+
 function _uniqBy(arr, keyFn) {
   const seen = new Set(), out = [];
   for (const x of arr) {
@@ -3330,10 +3361,13 @@ function _mergeStates(local, cloud) {
         if (JSON.stringify(cp.log[d]) !== before) stats.mergedDays++;
       }
     }
-    // Ρυθμίσεις: ένωση· τα κλειδιά που υπάρχουν μόνο τοπικά διατηρούνται
-    for (const key of ['filters', 'menuSubs']) {
-      cp[key] = Object.assign({}, lp[key] || {}, cp[key] || {});
-    }
+    // Ρυθμίσεις: βαθιά ένωση. Όπου το ίδιο κλειδί έχει διαφορετική τιμή στις
+    // δύο πλευρές, κερδίζει η πιο πρόσφατη — αλλιώς μια διαγραφή θα επέστρεφε.
+    const lTs = lp._subsTs || 0, cTs = cp._subsTs || 0;
+    const localNewer = lTs > cTs;
+    cp.menuSubs = _mergeSubs(lp.menuSubs, cp.menuSubs, localNewer);
+    cp.filters = _mergeLeaf(lp.filters, cp.filters, localNewer);
+    cp._subsTs = Math.max(lTs, cTs);
     if (!cp.plans || cp.plans.length === 0) cp.plans = lp.plans || [];
     if (!cp.activePlanId) cp.activePlanId = lp.activePlanId || null;
     if (!cp.dietStartDate) cp.dietStartDate = lp.dietStartDate || null;
@@ -3422,7 +3456,8 @@ function _applyCloudState(cloudState) {
       for (const [_mk, _mid] of _spots) {
         if (!_ms[_mk]) _ms[_mk] = {};
         if (!_ms[_mk][_mid]) _ms[_mk][_mid] = {};
-        if (!_ms[_mk][_mid]['cheese_katiki']) _ms[_mk][_mid]['cheese_katiki'] = 'cheese_cottage';
+        // undefined = δεν αποφασίστηκε ποτέ · null = ο χρήστης διάλεξε ρητά το κατίκι
+        if (_ms[_mk][_mid]['cheese_katiki'] === undefined) _ms[_mk][_mid]['cheese_katiki'] = 'cheese_cottage';
       }
       if (state.profiles.thomas.filters && state.profiles.thomas.filters['cheese_cottage']) {
         state.profiles.thomas.filters['cheese_cottage'].enabled = true;
@@ -4506,6 +4541,15 @@ function resetMealTimes(dateISO) {
   render();
 }
 
+// Σημειώνει πότε άλλαξαν τελευταία φορά υποκαταστάσεις ή φίλτρα σε αυτή τη
+// συσκευή. Η συγχώνευση το χρησιμοποιεί για να κρίνει ποια πλευρά είναι νεότερη.
+function _touchSubs() {
+  try {
+    const ap = state.profiles && state.profiles[state.activeProfileId];
+    if (ap) ap._subsTs = Date.now();
+  } catch (e) { /* αδιάφορο */ }
+}
+
 // Menu+meal substitutions (Meal tab): state.menuSubs[menuKey][mealId][origIngId] = newIngId
 // Applies on every day that menu+meal appears (not date-specific).
 function getMenuSub(menuKey, mealId, origIngId) {
@@ -4522,13 +4566,17 @@ function setMenuSub(menuKey, mealId, origIngId, newIngId) {
   if (newIngId && newIngId !== origIngId) {
     state.menuSubs[menuKey][mealId][origIngId] = newIngId;
   } else {
-    delete state.menuSubs[menuKey][mealId][origIngId];
+    // ΔΕΝ σβήνουμε το κλειδί. Αποθηκεύουμε ρητό null — «επιταφία».
+    // Μια διαγραφή δεν επιβιώνει σε ένωση συνόλων: το κλειδί θα ξαναρχόταν
+    // από την άλλη συσκευή. Το ρητό null είναι δεδομένο, άρα συγχωνεύεται.
+    state.menuSubs[menuKey][mealId][origIngId] = null;
     // Ρητή επιλογή του αρχικού τροφίμου: αν είναι απενεργοποιημένο στα φίλτρα,
     // το ξανα-ενεργοποιούμε — αλλιώς το resolveIngredient θα το αντικαθιστούσε αμέσως.
     if (newIngId === origIngId && state.filters && state.filters[origIngId]) {
       state.filters[origIngId].enabled = true;
     }
   }
+  _touchSubs();
   saveState();
   closeModal();
   render();
