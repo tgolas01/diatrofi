@@ -2209,9 +2209,9 @@ const DAY_NAMES = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη'
 const DAY_SHORT = ['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
 // Όλα τα πιθανά μπλοκ εναλλακτικών ενός γεύματος, με σειρά εμφάνισης.
 // Προσθήκη νέου: αρκεί ένα ακόμη κλειδί εδώ.
-// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-09-30 20:30 · 71e86076 με ημερομηνία και
+// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-09-30 20:42 · 807c88b3 με ημερομηνία και
 // σύντομο αποτύπωμα σε κάθε ανάρτηση, ώστε κάθε συσκευή να δηλώνει τι τρέχει.
-const APP_BUILD = '2026-09-30 20:30 · 71e86076';
+const APP_BUILD = '2026-09-30 20:42 · 807c88b3';
 
 const ALT_KEYS = ['alt', 'alt2', 'alt3', 'altBreakfast', 'altDinner'];
 
@@ -3291,8 +3291,17 @@ function _mergeDayEntry(a, b) {
   const out = Object.assign({}, other, primary);
 
   // Αντικείμενα: ένωση κλειδιών, με προτεραιότητα στην πληρέστερη πλευρά
-  for (const key of ['mealAtTime', 'subs', 'textSubs']) {
+  for (const key of ['mealAtTime', 'textSubs']) {
     if (a[key] || b[key]) out[key] = Object.assign({}, other[key] || {}, primary[key] || {});
+  }
+  // Οι υποκαταστάσεις έχουν δύο επίπεδα (γεύμα → τρόφιμο) και το null είναι
+  // έγκυρη τιμή («καμία»), όχι απουσία. Άρα ένωση ανά τρόφιμο, όχι ανά γεύμα.
+  if (a.subs || b.subs) {
+    out.subs = {};
+    const meals = new Set([].concat(Object.keys(a.subs || {}), Object.keys(b.subs || {})));
+    for (const mid of meals) {
+      out.subs[mid] = _mergeLeaf((primary.subs || {})[mid], (other.subs || {})[mid], true);
+    }
   }
   // Τσεκαρισμένα γεύματα: ένα «ναι» από οποιαδήποτε συσκευή αρκεί
   if (a.meals || b.meals) {
@@ -3362,7 +3371,7 @@ function _uniqBy(arr, keyFn) {
 
 // Επιστρέφει {state, stats}. Βάση το cloud, προστίθεται ό,τι έχει μόνο το τοπικό.
 function _mergeStates(local, cloud) {
-  const stats = { addedDays: 0, mergedDays: 0, addedProfiles: 0, addedPurchases: 0 };
+  const stats = { addedDays: 0, mergedDays: 0, addedProfiles: 0, addedPurchases: 0, changedSettings: 0 };
   if (!cloud) return { state: local, stats };
   if (!local) return { state: cloud, stats };
   const out = JSON.parse(JSON.stringify(cloud));
@@ -3392,9 +3401,13 @@ function _mergeStates(local, cloud) {
     // δύο πλευρές, κερδίζει η πιο πρόσφατη — αλλιώς μια διαγραφή θα επέστρεφε.
     const lTs = lp._subsTs || 0, cTs = cp._subsTs || 0;
     const localNewer = lTs > cTs;
+    const _msBefore = _stableStr(cp.menuSubs) + '|' + _stableStr(cp.filters);
     cp.menuSubs = _mergeSubs(lp.menuSubs, cp.menuSubs, localNewer);
     cp.filters = _mergeLeaf(lp.filters, cp.filters, localNewer);
     cp._subsTs = Math.max(lTs, cTs);
+    // Αν η συγχώνευση άλλαξε τις ρυθμίσεις σε σχέση με το cloud, πρέπει να
+    // γίνει push — αλλιώς η τοπική απόφαση δεν φτάνει ποτέ στην άλλη συσκευή.
+    if (_stableStr(cp.menuSubs) + '|' + _stableStr(cp.filters) !== _msBefore) stats.changedSettings++;
     if (!cp.plans || cp.plans.length === 0) cp.plans = lp.plans || [];
     if (!cp.activePlanId) cp.activePlanId = lp.activePlanId || null;
     if (!cp.dietStartDate) cp.dietStartDate = lp.dietStartDate || null;
@@ -3423,7 +3436,7 @@ function _mergeStates(local, cloud) {
 }
 
 function _mergeChanged(st) {
-  return !!(st.addedDays || st.mergedDays || st.addedProfiles || st.addedPurchases);
+  return !!(st.addedDays || st.mergedDays || st.addedProfiles || st.addedPurchases || st.changedSettings);
 }
 
 function _applyCloudState(cloudState) {
@@ -4624,13 +4637,19 @@ function setDailySubstitute(dateISO, mealId, origIngId, newIngId) {
   if (!state.log[dateISO]) state.log[dateISO] = {meals:{}, water:0, weight:null, notes:'', tea:false};
   if (!state.log[dateISO].subs) state.log[dateISO].subs = {};
   if (!state.log[dateISO].subs[mealId]) state.log[dateISO].subs[mealId] = {};
-  if (newIngId && newIngId !== origIngId) {
+  if (newIngId) {
+    // ΚΑΙ όταν ο χρήστης διαλέγει το αρχικό τρόφιμο, το αποθηκεύουμε ρητά.
+    // Αλλιώς θα σήμαινε απλώς «καμία ημερήσια αλλαγή» — και τότε θα ξανάπαιρνε
+    // τη θέση του η υποκατάσταση επιπέδου μενού, που μπορεί να λέει κάτι άλλο.
+    // Σειρά προτεραιότητας: ημερήσια > μενού > φίλτρο > αρχικό.
     state.log[dateISO].subs[mealId][origIngId] = newIngId;
-  } else {
-    delete state.log[dateISO].subs[mealId][origIngId];
     if (newIngId === origIngId && state.filters && state.filters[origIngId]) {
       state.filters[origIngId].enabled = true;
     }
+  } else {
+    // null = το κουμπί «Αυτόματο»: καμία ημερήσια απόφαση.
+    // Ρητό null, όχι διαγραφή — μια διαγραφή δεν επιβιώνει στην ένωση με το cloud.
+    state.log[dateISO].subs[mealId][origIngId] = null;
   }
   // Clear any text sub for this slot
   if (state.log[dateISO].textSubs && state.log[dateISO].textSubs[mealId]) {
@@ -4656,7 +4675,7 @@ function setDailyTextSub(dateISO, mealId, origIngId, text) {
     state.log[dateISO].textSubs[mealId][origIngId] = text;
     // Also clear any single-ingredient sub for this slot
     if (state.log[dateISO].subs && state.log[dateISO].subs[mealId]) {
-      delete state.log[dateISO].subs[mealId][origIngId];
+      state.log[dateISO].subs[mealId][origIngId] = null;
     }
   } else {
     delete state.log[dateISO].textSubs[mealId][origIngId];
