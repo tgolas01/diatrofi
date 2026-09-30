@@ -2209,9 +2209,9 @@ const DAY_NAMES = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη'
 const DAY_SHORT = ['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
 // Όλα τα πιθανά μπλοκ εναλλακτικών ενός γεύματος, με σειρά εμφάνισης.
 // Προσθήκη νέου: αρκεί ένα ακόμη κλειδί εδώ.
-// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-09-30 20:42 · 807c88b3 με ημερομηνία και
+// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-09-30 21:00 · ea353293 με ημερομηνία και
 // σύντομο αποτύπωμα σε κάθε ανάρτηση, ώστε κάθε συσκευή να δηλώνει τι τρέχει.
-const APP_BUILD = '2026-09-30 20:42 · 807c88b3';
+const APP_BUILD = '2026-09-30 21:00 · ea353293';
 
 const ALT_KEYS = ['alt', 'alt2', 'alt3', 'altBreakfast', 'altDinner'];
 
@@ -4150,6 +4150,14 @@ const ROTATABLE_GROUPS = ['fruit_season','legume_group','nuts_group','ladera_gro
 function effectiveAutoIngredient(origIngId, mealId, dateISO) {
   const orig = getIngredient(origIngId);
   if (!orig) return null;
+  // Ίδια σειρά προτεραιότητας με το renderItem: μενού > ποικιλία > φίλτρο > αρχικό.
+  // Χωρίς αυτό, το πλαίσιο «αυτόματη επιλογή» έδειχνε το αρχικό τρόφιμο ενώ
+  // στην πραγματικότητα εμφανιζόταν η υποκατάσταση του μενού.
+  if (mealId && dateISO) {
+    const _mk = menuForDate(dateISO).menuKey;
+    const _msid = _mk ? getMenuSub(_mk, mealId, origIngId) : null;
+    if (_msid && getIngredient(_msid)) return getIngredient(_msid);
+  }
   const f = state.filters[origIngId];
   const filtered = f && f.enabled === false;
   if (filtered) {
@@ -7623,6 +7631,17 @@ function openIngredientSubModal(origIngId, mealId, dateISO) {
       <div class="pct">${ingName(autoIng)}${autoNote ? ' · ' + autoNote : ''}</div></div>
     <span>${isDefault ? '✓' : ''}</span>
   </div>`;
+  // Όταν το αυτόματο καταλήγει σε άλλο τρόφιμο (π.χ. υποκατάσταση μενού), το
+  // αρχικό τρόφιμο του προγράμματος πρέπει να υπάρχει ως ξεχωριστή, ρητή επιλογή —
+  // αλλιώς δεν υπάρχει κανένας τρόπος να επιστρέψεις σε αυτό μόνο για σήμερα.
+  const _origSel = (currentSub === origIngId) ? 'selected' : '';
+  if (autoIng.id !== orig.id) {
+    html += `<div class="alt-option ${_origSel}" onclick="setDailySubstitute('${dateISO}', '${mealId}', '${origIngId}', '${origIngId}')">
+      <div><strong>${ingName(orig)}</strong> <span style="font-size:11px;color:var(--accent);font-weight:700">(${T('origBadge')})</span>
+        ${orig.n100 ? `<div class="pct">${orig.n100[0]} kcal · ${orig.n100[2]}g protein · ${orig.n100[3]}g fat /100g</div>` : ''}
+      </div><span>${_origSel ? '✓' : ''}</span>
+    </div>`;
+  }
   // Alternatives — explicit dietitian rule first, else cheese/group fallback
   if (explicitEntries) {
     for (const e of explicitEntries) {
@@ -7646,7 +7665,8 @@ function openIngredientSubModal(origIngId, mealId, dateISO) {
         html += `<div class="subtle" style="margin:10px 0 4px;font-weight:600;color:var(--navy)">🧀 ${cgNames[grp] || grp}</div>`;
         for (const alt of members) {
           const isOrig = alt.id === origIngId;
-          const sel = (isOrig ? !currentSub : currentSub === alt.id) ? 'selected' : '';
+          if (isOrig && autoIng.id !== orig.id) continue;   // ήδη εμφανίστηκε πιο πάνω
+          const sel = (currentSub === alt.id || (isOrig && !currentSub && autoIng.id === orig.id)) ? 'selected' : '';
           const scaled = (!isOrig && origGrams) ? cheeseScaledGrams(origIngId, alt.id, origGrams) : 0;
           const badge = isOrig ? ` <span style="font-size:11px;color:var(--accent);font-weight:700">(${T('origBadge')})</span>` : '';
           html += `<div class="alt-option ${sel}" onclick="setDailySubstitute('${dateISO}', '${mealId}', '${origIngId}', '${alt.id}')">
