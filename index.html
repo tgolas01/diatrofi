@@ -2209,6 +2209,10 @@ const DAY_NAMES = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη'
 const DAY_SHORT = ['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
 // Όλα τα πιθανά μπλοκ εναλλακτικών ενός γεύματος, με σειρά εμφάνισης.
 // Προσθήκη νέου: αρκεί ένα ακόμη κλειδί εδώ.
+// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-09-30 19:21 · 361757a0 με ημερομηνία και
+// σύντομο αποτύπωμα σε κάθε ανάρτηση, ώστε κάθε συσκευή να δηλώνει τι τρέχει.
+const APP_BUILD = '2026-09-30 19:21 · 361757a0';
+
 const ALT_KEYS = ['alt', 'alt2', 'alt3', 'altBreakfast', 'altDinner'];
 
 const MEAL_TYPES = [
@@ -2462,6 +2466,8 @@ const I18N = {
     backupSyncOn: 'Συγχρονισμένο με το cloud',
     backupSyncOff: 'Χωρίς συγχρονισμό — μόνο σε αυτή τη συσκευή',
     backupAccount: 'Λογαριασμός',
+    backupBuild: 'Έκδοση',
+    backupBuildDev: 'τοπική (χωρίς σφραγίδα)',
     backupMerged: 'Συγχωνεύτηκαν από άλλη συσκευή',
     backupMergedUpd: 'ενημερώθηκαν',
     syncError: 'ΣΦΑΛΜΑ ΣΥΓΧΡΟΝΙΣΜΟΥ — τα δεδομένα μένουν μόνο εδώ',
@@ -2706,6 +2712,8 @@ const I18N = {
     backupSyncOn: 'Synced to cloud',
     backupSyncOff: 'Not synced — this device only',
     backupAccount: 'Account',
+    backupBuild: 'Build',
+    backupBuildDev: 'local (unstamped)',
     backupMerged: 'Merged from another device',
     backupMergedUpd: 'updated',
     syncError: 'SYNC ERROR — data stays on this device only',
@@ -6433,6 +6441,7 @@ function viewSettings() {
       <div style="margin-top:5px;font-weight:700;color:${_bs.synced ? 'var(--green)' : 'var(--orange)'}">
         ${_bs.synced ? '☁ ' + T('backupSyncOn') : '⚠ ' + (_bs.syncError ? T('syncError') + ' (' + _bs.syncError + ')' : T('backupSyncOff'))}</div>
       ${_bs.account ? `<div style="margin-top:3px;word-break:break-all"><strong>${T('backupAccount')}:</strong> ${_bs.account}</div>` : ''}
+      <div style="margin-top:3px"><strong>${T('backupBuild')}:</strong> <code style="font-size:12px">${(typeof APP_BUILD !== 'undefined' && APP_BUILD.indexOf('__') !== 0) ? APP_BUILD : T('backupBuildDev')}</code></div>
       ${(_bs.merge && (_bs.merge.addedDays || _bs.merge.mergedDays)) ? `<div style="margin-top:5px;color:var(--green)">\u21c4 ${T('backupMerged')}: +${_bs.merge.addedDays} ${T('backupDays')}, ${_bs.merge.mergedDays} ${T('backupMergedUpd')}</div>` : ''}
     </div>
     <button class="btn btn-block" onclick="exportBackup()">⬇ ${T('backupExport')}</button>
