@@ -2209,9 +2209,9 @@ const DAY_NAMES = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη'
 const DAY_SHORT = ['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
 // Όλα τα πιθανά μπλοκ εναλλακτικών ενός γεύματος, με σειρά εμφάνισης.
 // Προσθήκη νέου: αρκεί ένα ακόμη κλειδί εδώ.
-// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-09-30 19:21 · 361757a0 με ημερομηνία και
+// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-09-30 20:30 · 71e86076 με ημερομηνία και
 // σύντομο αποτύπωμα σε κάθε ανάρτηση, ώστε κάθε συσκευή να δηλώνει τι τρέχει.
-const APP_BUILD = '2026-09-30 19:21 · 361757a0';
+const APP_BUILD = '2026-09-30 20:30 · 71e86076';
 
 const ALT_KEYS = ['alt', 'alt2', 'alt3', 'altBreakfast', 'altDinner'];
 
@@ -3257,6 +3257,18 @@ function _hasMeaningfulData(st) {
 
 // Πόσο «γεμάτη» είναι μια ημερήσια εγγραφή — για να ξέρουμε ποια υπερισχύει
 // όταν το ίδιο πεδίο έχει διαφορετική τιμή στις δύο πλευρές.
+// Σειριοποίηση με ταξινομημένα κλειδιά. Χωρίς αυτήν, το Object.assign
+// αναδιατάσσει τα πεδία και κάθε συγχώνευση φαίνεται σαν αλλαγή — οπότε οι
+// συσκευές σπρώχνουν ατέρμονα η μία στην άλλη τα ίδια ακριβώς δεδομένα.
+function _stableStr(v) {
+  if (v === undefined) return 'undefined';
+  if (v === null || typeof v !== 'object') return JSON.stringify(v);
+  if (Array.isArray(v)) return '[' + v.map(_stableStr).join(',') + ']';
+  // τα κλειδιά με τιμή undefined αγνοούνται: ισοδυναμούν με απουσία κλειδιού
+  const keys = Object.keys(v).filter(k => v[k] !== undefined).sort();
+  return '{' + keys.map(k => JSON.stringify(k) + ':' + _stableStr(v[k])).join(',') + '}';
+}
+
 function _entryRichness(e) {
   if (!e) return -1;
   let r = 0;
@@ -3289,8 +3301,15 @@ function _mergeDayEntry(a, b) {
       out.meals[k] = !!((a.meals && a.meals[k]) || (b.meals && b.meals[k]));
     }
   }
-  // Οι αφαιρέσεις αποθέματος ΔΕΝ ενώνονται — θα διπλομετρούσαν
-  out.deducted = primary.deducted || other.deducted;
+  // Οι αφαιρέσεις αποθέματος ΔΕΝ ενώνονται — θα διπλομετρούσαν.
+  // Προσοχή: αν δεν τις έχει καμία πλευρά, ΔΕΝ προσθέτουμε κλειδί. Ένα κλειδί
+  // με τιμή undefined έκανε κάθε εγγραφή να φαίνεται αλλαγμένη σε κάθε
+  // συγχώνευση, με αποτέλεσμα ατέρμονες αποστολές προς το cloud.
+  if (primary.deducted || other.deducted) {
+    out.deducted = primary.deducted || other.deducted;
+  } else {
+    delete out.deducted;
+  }
 
   out.water = Math.max(a.water || 0, b.water || 0);
   out.weight = (primary.weight != null) ? primary.weight : (other.weight != null ? other.weight : null);
@@ -3364,9 +3383,9 @@ function _mergeStates(local, cloud) {
         cp.log[d] = JSON.parse(JSON.stringify(ll[d]));
         stats.addedDays++;
       } else {
-        const before = JSON.stringify(cp.log[d]);
+        const before = _stableStr(cp.log[d]);
         cp.log[d] = _mergeDayEntry(ll[d], cp.log[d]);
-        if (JSON.stringify(cp.log[d]) !== before) stats.mergedDays++;
+        if (_stableStr(cp.log[d]) !== before) stats.mergedDays++;
       }
     }
     // Ρυθμίσεις: βαθιά ένωση. Όπου το ίδιο κλειδί έχει διαφορετική τιμή στις
