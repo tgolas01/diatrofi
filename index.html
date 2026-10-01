@@ -1481,7 +1481,9 @@ const INGREDIENTS = [
   {id:'jam_no_sugar',  name:'Μαρμελάδα χωρίς ζάχαρη', name_en:'Jam (no sugar)', cat:'spice', n100:[130, 30, 0.4, 0.1]},
   {id:'rice_brown',    name:'Ρύζι καστανό βρασμένο', name_en:'Brown rice (cooked)', cat:'grain', group:'starch_lunch', n100:[112, 23, 2.6, 0.9]},
   {id:'rice_basmati',  name:'Ρύζι μπασμάτι βρασμένο', name_en:'Basmati rice (cooked)', cat:'grain', group:'starch_lunch', n100:[121, 25, 3.5, 0.4]},
-  {id:'imon_vanilla',  name:'Μπισκότο IMON Βανίλιας', name_en:'IMON Vanilla biscuit', cat:'imon', perPiece:25, countByPiece:true, n100:[460, 50, 10, 22]},
+  // ΟΝΟΜΑΣΙΑ ΠΡΟΪΟΝΤΟΣ: «Μπισκότο Χαρούπι με άρωμα βανίλιας». Τα διαιτολόγια το
+  // γράφουν λανθασμένα «μπισκότο βανίλιας» — εδώ κρατάμε το σωστό εμπορικό όνομα.
+  {id:'imon_vanilla',  name:'Μπισκότο IMON Χαρούπι με άρωμα βανίλιας', name_en:'IMON Carob biscuit with vanilla aroma', cat:'imon', perPiece:25, countByPiece:true, n100:[460, 50, 10, 22]},
   {id:'imon_baby',     name:'Μπισκότο IMON Baby', name_en:'IMON Baby biscuit', cat:'imon', group:'imon_maman_group', perPiece:25, countByPiece:true, n100:[460, 50, 10, 22]},
   {id:'imon_sfakianh',  name:'Σφακιανή πίτα IMON', name_en:'IMON Sfakian pie', cat:'imon', perPiece:120, n100:[280, 35, 9, 11]},
 
@@ -1617,7 +1619,7 @@ let MENUS = {
       M('olive_oil', 30, '2 κ.σ.'),
     ]},
     afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_vanilla', 25, '1 τεμ. βανίλιας', 1),
+      M('imon_vanilla', 25, '1 τεμ. χαρουπιού', 1),
       M('tea_other', 0, '1 φλ. τσαγιού'),
     ]},
     dinner: { name:'Ντάκος', nameEn:'Dakos', time:'17:00', items:[
@@ -1795,7 +1797,7 @@ let MENUS = {
       M('olive_oil', 30, '2 κ.σ.'),
     ]},
     afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_vanilla', 25, '1 τεμ. βανίλιας', 1),
+      M('imon_vanilla', 25, '1 τεμ. χαρουπιού', 1),
       M('tea_other', 0, '1 φλ. τσαγιού'),
     ]},
     dinner: { name:'Παξιμάδι με καρπούζι', nameEn:'Rusk with watermelon', time:'17:00', items:[
@@ -1824,6 +1826,81 @@ let WEEK_ORDER = ['Γ','Α','Β+','Α','Γ1+','Α','Ε']; // v2: swapped Δευ�
 // Built-in plan defaults (deep copies) — restored when no custom plan is active
 const DEFAULT_MENUS = JSON.parse(JSON.stringify(MENUS));
 const DEFAULT_WEEK_ORDER = WEEK_ORDER.slice();
+
+// ============================================================================
+// ΔΙΑΙΤΟΛΟΓΙΟ 30/9/2026 — ισχύει από Δευτέρα 5/10/2026
+// ----------------------------------------------------------------------------
+// Η εφαρμογή κρατά ΕΝΑ ενεργό πρόγραμμα, όχι χρονολογημένα. Για να μη χαλάσει
+// η τρέχουσα εβδομάδα (30/9–4/10, που ακολουθεί ακόμη το διαιτολόγιο 28/8),
+// η νέα δίαιτα μπαίνει ως «μπάλωμα» πάνω στην παλιά και ενεργοποιείται μόνη της
+// τη Δευτέρα 5/10. Μέχρι τότε δεν αλλάζει τίποτα στην οθόνη.
+// Γράφεται ως λίστα διαφορών, όχι ως δεύτερο πλήρες αντίγραφο των μενού, ώστε
+// να είναι αναγνώσιμη και να αντιστοιχεί γραμμή-προς-γραμμή στο PDF.
+// ============================================================================
+const PLAN_30SEP2026 = {
+  from: '2026-10-05',
+  label: 'Διαιτολόγιο 30/9/2026',
+  weekOrder: ['Ε','Β+','Α','Ε','Β+','Γ1+','Γ'],   // ΕΚΤΕΛΕΣΗ [Ε-Β-Α-Ε-Β+-Γ1-Γ], Δευ→Κυρ
+  ops: [
+    // ── Προ ύπνου: cottage 2 → 2,5 κ.σ., σε όλα τα μενού ──
+    {m: 'Α',   meal: 'bedtime', ing: 'cheese_cottage', g: 38, unit: '2,5 κ.σ. cottage'},
+    {m: 'Β+',  meal: 'bedtime', ing: 'cheese_cottage', g: 38, unit: '2,5 κ.σ. cottage'},
+    {m: 'Γ1+', meal: 'bedtime', ing: 'cheese_cottage', g: 38, unit: '2,5 κ.σ. cottage'},
+    {m: 'Γ',   meal: 'bedtime', ing: 'cheese_cottage', g: 38, unit: '2,5 κ.σ. cottage'},
+    {m: 'Ε',   meal: 'bedtime', ing: 'cheese_cottage', g: 38, unit: '2,5 κ.σ. cottage'},
+
+    // ── ΜΕΝΟΥ Α ──
+    {m: 'Α', meal: 'lunch', ing: 'kinoa', g: 160, unit: '160 γρ βρασμένο', altsG: 160},
+
+    // ── ΜΕΝΟΥ Β+ ──
+    {m: 'Β+', meal: 'lunch',  ing: 'ospria_fakes',  g: 190, unit: '190 γρ βρασμένα', altsG: 190},
+    {m: 'Β+', meal: 'lunch',  ing: 'cheese_katiki', g: 110, unit: '110 γρ κατίκι'},
+    {m: 'Β+', meal: 'dinner', ing: 'paximadi_sikaleos', g: 60, unit: '60 γρ παξ. σικάλεως'},
+
+    // ── ΜΕΝΟΥ Γ1+ ── (το καρπούζι βγαίνει εκτός εποχής)
+    {m: 'Γ1+', meal: 'morning', ing: 'watermelon', to: 'pear', g: 150, unit: '150 γρ',
+     alts: [['apple',150],['nectarine',150],['peach',150]]},
+    {m: 'Γ1+', meal: 'morning', ing: 'cheese_logadi', g: 38, unit: '1,5 φ. λογάδι'},
+
+    // ── ΜΕΝΟΥ Γ ──
+    {m: 'Γ', meal: 'breakfast', ing: 'watermelon', to: 'pear',  g: 80,  unit: '80 γρ'},
+    {m: 'Γ', meal: 'morning',   ing: 'watermelon', to: 'apple', g: 150, unit: '150 γρ',
+     alts: [['pear',150],['nectarine',150],['peach',150]]},
+    {m: 'Γ', meal: 'dinner',    ing: 'kritsini_imon', g: 20, unit: '5 τεμ. κριτσίνι', piece: 5},
+
+    // ── ΜΕΝΟΥ Ε ──
+    {m: 'Ε', meal: 'morning', ing: 'watermelon', to: 'pear', g: 150, unit: '150 γρ',
+     alts: [['apple',150],['nectarine',150],['peach',150]]},
+    {m: 'Ε', meal: 'dinner',  ing: 'watermelon', to: 'pear', g: 150, unit: '150 γρ'},
+    {m: 'Ε', meal: 'dinner',  name: 'Παξιμάδι με αχλάδι', nameEn: 'Rusk with pear'},
+  ]
+};
+
+// Εφαρμόζει τις διαφορές πάνω σε αντίγραφο των μενού. Δεν πειράζει το πρωτότυπο.
+function applyPlanOps(menus, ops) {
+  for (const op of ops) {
+    const meal = menus[op.m] && menus[op.m][op.meal];
+    if (!meal) { console.warn('πρόγραμμα: λείπει', op.m, op.meal); continue; }
+    if (op.name) meal.name = op.name;
+    if (op.nameEn) meal.nameEn = op.nameEn;
+    if (!op.ing) continue;
+    const it = meal.items.find(x => x.ing === op.ing);
+    if (!it) { console.warn('πρόγραμμα: λείπει υλικό', op.m, op.meal, op.ing); continue; }
+    if (op.to) it.ing = op.to;
+    if (op.g != null) it.g = op.g;
+    if (op.unit) it.unit = op.unit;
+    if (op.piece != null) it.piece = op.piece;
+    if (op.alts) it.alts = op.alts.map(a => ({ing: a[0], g: a[1]}));
+    else if (op.altsG != null && it.alts) it.alts.forEach(a => { a.g = op.altsG; });
+  }
+  return menus;
+}
+
+// Ποιο προγραμματισμένο διαιτολόγιο ισχύει σήμερα;
+function scheduledPlanActive() {
+  try { return todayISO() >= PLAN_30SEP2026.from; } catch (e) { return false; }
+}
+
 
 // ============================================================================
 // THANASIS menus (from I-M-O-N MED plan 23 Jun 2026) — 4 menus
@@ -2209,9 +2286,9 @@ const DAY_NAMES = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη'
 const DAY_SHORT = ['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
 // Όλα τα πιθανά μπλοκ εναλλακτικών ενός γεύματος, με σειρά εμφάνισης.
 // Προσθήκη νέου: αρκεί ένα ακόμη κλειδί εδώ.
-// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-09-30 21:00 · ea353293 με ημερομηνία και
+// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-10-01 16:54 · 8cef6764 με ημερομηνία και
 // σύντομο αποτύπωμα σε κάθε ανάρτηση, ώστε κάθε συσκευή να δηλώνει τι τρέχει.
-const APP_BUILD = '2026-09-30 21:00 · ea353293';
+const APP_BUILD = '2026-10-01 16:54 · 8cef6764';
 
 const ALT_KEYS = ['alt', 'alt2', 'alt3', 'altBreakfast', 'altDinner'];
 
@@ -2466,6 +2543,7 @@ const I18N = {
     backupSyncOn: 'Συγχρονισμένο με το cloud',
     backupSyncOff: 'Χωρίς συγχρονισμό — μόνο σε αυτή τη συσκευή',
     backupAccount: 'Λογαριασμός',
+    planFrom: 'από',
     backupBuild: 'Έκδοση',
     backupBuildDev: 'τοπική (χωρίς σφραγίδα)',
     backupMerged: 'Συγχωνεύτηκαν από άλλη συσκευή',
@@ -2712,6 +2790,7 @@ const I18N = {
     backupSyncOn: 'Synced to cloud',
     backupSyncOff: 'Not synced — this device only',
     backupAccount: 'Account',
+    planFrom: 'from',
     backupBuild: 'Build',
     backupBuildDev: 'local (unstamped)',
     backupMerged: 'Merged from another device',
@@ -3761,6 +3840,11 @@ function applyActivePlan() {
   } else {
     MENUS = JSON.parse(JSON.stringify(DEFAULT_MENUS));
     WEEK_ORDER = DEFAULT_WEEK_ORDER.slice();
+    // Μόνο για τον Θωμά και μόνο από 5/10 και μετά
+    if (state.activeProfileId === 'thomas' && scheduledPlanActive()) {
+      MENUS = applyPlanOps(MENUS, PLAN_30SEP2026.ops);
+      WEEK_ORDER = PLAN_30SEP2026.weekOrder.slice();
+    }
   }
 }
 
@@ -3772,7 +3856,14 @@ function setActivePlan(id) {
 }
 
 function activePlanName() {
-  if (!state.activePlanId) return T('builtinPlan');
+  if (!state.activePlanId) {
+    // Το προγραμματισμένο διαιτολόγιο δεν είναι «plan» — ας φαίνεται όμως με όνομα.
+    if (state.activeProfileId === 'thomas' && scheduledPlanActive()) return PLAN_30SEP2026.label;
+    if (state.activeProfileId === 'thomas') {
+      return T('builtinPlan') + ' · ' + T('planFrom') + ' 5/10: ' + PLAN_30SEP2026.label;
+    }
+    return T('builtinPlan');
+  }
   const p = (state.plans || []).find(x => x.id === state.activePlanId);
   return p ? p.name : T('builtinPlan');
 }
