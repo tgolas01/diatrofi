@@ -1473,18 +1473,23 @@ const INGREDIENTS = [
   // IMON PRODUCTS
   {id:'imon_matsa',     name:'Πρωτεΐνη IMON Matsa', name_en:'IMON Matsa protein', cat:'imon', n100:[380, 12, 65, 6], perPiece:20, pack:{g:30, unit:'σακουλάκι', unitEn:'sachet', plural:'σακουλάκια', pluralEn:'sachets', perBox:12, box:'κουτί', boxEn:'box'}},
   {id:'imon_maman',     name:'Μπισκότο IMON Maman (Μαστίχα)', name_en:'IMON Maman biscuit (Mastic)', cat:'imon', group:'imon_maman_group', perPiece:25, countByPiece:true, n100:[460, 50, 10, 22]},
-  {id:'imon_bebe',      name:'Μπισκότο IMON Bebe Choco', name_en:'IMON Bebe Choco biscuit', cat:'imon', group:'imon_maman_group', perPiece:25, countByPiece:true, n100:[460, 50, 10, 22]},
+  // No 404 · «Μπισκότα baby με κακάο» · 35 γρ/τεμ · 5 τμχ/πακέτο
+  {id:'imon_bebe',      name:'Μπισκότο IMON Baby με κακάο', name_en:'IMON Baby biscuit with cocoa', cat:'imon', group:'imon_maman_group', perPiece:35, countByPiece:true, n100:[487, 39.9, 18.7, 28.1], pack:{g:35, unit:'τεμάχιο', unitEn:'piece', plural:'τεμάχια', pluralEn:'pieces', perBox:5, box:'πακέτο', boxEn:'pack'}},
   {id:'imon_tahini',    name:'Μπισκότο IMON Ταχίνι', name_en:'IMON Tahini biscuit', cat:'imon', perPiece:65, countByPiece:true, n100:[475, 45, 12, 26]},
   {id:'imon_eyzhn',     name:'Μπισκότο IMON ΕΥΖΗΝ', name_en:'IMON EYZHN biscuit', cat:'imon', perPiece:40, countByPiece:true, n100:[460, 48, 12, 22]},
-  {id:'imon_cocoa',     name:'Μπισκότο IMON Κακάο', name_en:'IMON Cocoa biscuit', cat:'imon', perPiece:30, countByPiece:true, n100:[470, 50, 11, 24]},
+  // No 077 · «Πρωτεϊνικό μπισκότο κακάο με λάδι καρύδας» · 65 γρ/τεμ · 5 τμχ/πακέτο
+  {id:'imon_cocoa',     name:'Μπισκότο IMON Κακάο με λάδι καρύδας', name_en:'IMON Cocoa biscuit with coconut oil', cat:'imon', perPiece:65, countByPiece:true, n100:[452, 38.7, 21.8, 23.3], pack:{g:65, unit:'τεμάχιο', unitEn:'piece', plural:'τεμάχια', pluralEn:'pieces', perBox:5, box:'πακέτο', boxEn:'pack'}},
   {id:'nectarine',     name:'Νεκταρίνι', name_en:'Nectarine', cat:'fruit', group:'fruit_season', n100:[44, 11, 1.1, 0.3], perPiece:140},
   {id:'jam_no_sugar',  name:'Μαρμελάδα χωρίς ζάχαρη', name_en:'Jam (no sugar)', cat:'spice', n100:[130, 30, 0.4, 0.1]},
   {id:'rice_brown',    name:'Ρύζι καστανό βρασμένο', name_en:'Brown rice (cooked)', cat:'grain', group:'starch_lunch', n100:[112, 23, 2.6, 0.9]},
   {id:'rice_basmati',  name:'Ρύζι μπασμάτι βρασμένο', name_en:'Basmati rice (cooked)', cat:'grain', group:'starch_lunch', n100:[121, 25, 3.5, 0.4]},
   // ΟΝΟΜΑΣΙΑ ΠΡΟΪΟΝΤΟΣ: «Μπισκότο Χαρούπι με άρωμα βανίλιας». Τα διαιτολόγια το
   // γράφουν λανθασμένα «μπισκότο βανίλιας» — εδώ κρατάμε το σωστό εμπορικό όνομα.
-  {id:'imon_vanilla',  name:'Μπισκότο IMON Χαρούπι με άρωμα βανίλιας', name_en:'IMON Carob biscuit with vanilla aroma', cat:'imon', perPiece:25, countByPiece:true, n100:[460, 50, 10, 22]},
-  {id:'imon_baby',     name:'Μπισκότο IMON Baby', name_en:'IMON Baby biscuit', cat:'imon', group:'imon_maman_group', perPiece:25, countByPiece:true, n100:[460, 50, 10, 22]},
+  // No 114 · «Πρωτεϊνικό μπισκότο χαρούπι με άρωμα βανίλιας» · 65 γρ/τεμ · 5 τμχ/πακέτο
+  {id:'imon_vanilla',  name:'Μπισκότο IMON Χαρούπι με άρωμα βανίλιας', name_en:'IMON Carob biscuit with vanilla aroma', cat:'imon', perPiece:65, countByPiece:true, n100:[502, 39.3, 18.3, 30.2], pack:{g:65, unit:'τεμάχιο', unitEn:'piece', plural:'τεμάχια', pluralEn:'pieces', perBox:5, box:'πακέτο', boxEn:'pack'}},
+  // ΚΑΤΑΡΓΗΘΗΚΕ 2/10/2026 — το προϊόν δεν κυκλοφορεί πλέον.
+  // Μένει στη βάση ώστε να μη σπάσει το ιστορικό, αλλά δεν προτείνεται πλέον.
+  {id:'imon_baby',     name:'Μπισκότο IMON Baby (καταργήθηκε)', name_en:'IMON Baby biscuit (discontinued)', cat:'imon', group:'imon_maman_group', perPiece:25, countByPiece:true, n100:[460, 50, 10, 22], discontinued:true},
   {id:'imon_sfakianh',  name:'Σφακιανή πίτα IMON', name_en:'IMON Sfakian pie', cat:'imon', perPiece:120, n100:[280, 35, 9, 11]},
 
   // TEAS
@@ -1511,7 +1516,9 @@ const INGREDIENTS = [
   {id:'pasta_wholegrain', name:'Μακαρόνια ολικής βρασμένα', name_en:'Wholegrain pasta (cooked)', cat:'grain', n100:[130, 27, 5, 0.5]},
   {id:'tuna_water',    name:'Τόνος Αλοννήσου σε νερό', name_en:'Tuna in water (Alonissos)', cat:'fish', group:'protein_main', n100:[116, 0, 26, 1], pack:{g:120, unit:'βαζάκι', unitEn:'jar', plural:'βαζάκια', pluralEn:'jars'}},
   {id:'imon_karydas',  name:'Μπισκότο IMON Καρύδας', name_en:'IMON Coconut biscuit', cat:'imon', perPiece:30, countByPiece:true, n100:[490, 40, 8, 30]},
-  {id:'imon_xaroupi',  name:'Μπισκότο IMON Χαρούπι', name_en:'IMON Carob biscuit', cat:'imon', perPiece:30, countByPiece:true, n100:[440, 55, 9, 18]},
+  // ΚΑΤΑΡΓΗΘΗΚΕ 2/10/2026 — ενώθηκε με το imon_vanilla (ίδιο προϊόν).
+  // Μένει στη βάση ώστε να μη σπάσει το ιστορικό, αλλά δεν προτείνεται πλέον.
+  {id:'imon_xaroupi',  name:'Μπισκότο IMON Χαρούπι (παλιό)', name_en:'IMON Carob biscuit (old)', cat:'imon', perPiece:30, countByPiece:true, n100:[440, 55, 9, 18], discontinued:true},
 ];
 
 const CATEGORIES = {
@@ -1619,7 +1626,7 @@ let MENUS = {
       M('olive_oil', 30, '2 κ.σ.'),
     ]},
     afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_vanilla', 25, '1 τεμ. χαρουπιού', 1),
+      M('imon_vanilla', 65, '1 τεμ. χαρουπιού', 1),
       M('tea_other', 0, '1 φλ. τσαγιού'),
     ]},
     dinner: { name:'Ντάκος', nameEn:'Dakos', time:'17:00', items:[
@@ -1709,7 +1716,7 @@ let MENUS = {
       M('olive_oil', 30, '2 κ.σ.'),
     ]},
     afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_baby', 38, '1,5 τεμ. baby', 1.5),
+      M('imon_bebe', 53, '1,5 τεμ. baby', 1.5),
       M('tea_other', 0, '1 φλ. τσαγιού'),
     ]},
     dinner: { name:'Πίτα γύρου', nameEn:'Gyros pita', time:'17:00', items:[
@@ -1797,7 +1804,7 @@ let MENUS = {
       M('olive_oil', 30, '2 κ.σ.'),
     ]},
     afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_vanilla', 25, '1 τεμ. χαρουπιού', 1),
+      M('imon_vanilla', 65, '1 τεμ. χαρουπιού', 1),
       M('tea_other', 0, '1 φλ. τσαγιού'),
     ]},
     dinner: { name:'Παξιμάδι με καρπούζι', nameEn:'Rusk with watermelon', time:'17:00', items:[
@@ -2185,7 +2192,7 @@ const PAULOS_MENUS = {
       M('olive_oil', 22, '1,5 κ.σ.'),
     ]},
     afternoon: { name:'Απογευματινό IMON', nameEn:'IMON afternoon', time:'14:30', items:[
-      M('imon_xaroupi', 30, '1 τεμ. χαρούπι', 1),
+      M('imon_vanilla', 65, '1 τεμ. χαρούπι', 1),
     ]},
     dinner: { name:'Αραβική πίτα με mozzarella', nameEn:'Pita with mozzarella', time:'17:00', items:[
       M('arabiki_pita', 60, '60 γρ'),
@@ -2286,9 +2293,9 @@ const DAY_NAMES = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη'
 const DAY_SHORT = ['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
 // Όλα τα πιθανά μπλοκ εναλλακτικών ενός γεύματος, με σειρά εμφάνισης.
 // Προσθήκη νέου: αρκεί ένα ακόμη κλειδί εδώ.
-// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-10-01 16:54 · 8cef6764 με ημερομηνία και
+// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-10-02 12:17 · f0b53ec2 με ημερομηνία και
 // σύντομο αποτύπωμα σε κάθε ανάρτηση, ώστε κάθε συσκευή να δηλώνει τι τρέχει.
-const APP_BUILD = '2026-10-01 16:54 · 8cef6764';
+const APP_BUILD = '2026-10-02 12:17 · f0b53ec2';
 
 const ALT_KEYS = ['alt', 'alt2', 'alt3', 'altBreakfast', 'altDinner'];
 
@@ -4856,6 +4863,13 @@ function getIngredient(id) {
 }
 function allIngredients() {
   return INGREDIENTS.concat(state.customIngredients || []);
+}
+
+// Όσα έχουν καταργηθεί μένουν στη βάση για να μη σπάσει το ιστορικό, αλλά δεν
+// εμφανίζονται ως επιλογές. Το αρχικό τρόφιμο ενός γεύματος εξαιρείται πάντα
+// από το φίλτρο, ώστε να μπορεί να επιλεγεί ξανά (βλ. διόρθωση 5.3).
+function selectableIngredients(keepId) {
+  return allIngredients().filter(i => !i.discontinued || i.id === keepId);
 }
 
 // Check if an ingredient is enabled (i.e. user eats it)
@@ -7612,9 +7626,9 @@ function openMenuSubModal(origIngId, mealId, menuKey) {
   if (isCheese) {
     // Το ΑΡΧΙΚΟ τυρί του προγράμματος μπαίνει πάντα στη λίστα — ακόμη κι αν είναι
     // απενεργοποιημένο στα φίλτρα — ώστε να μπορεί πάντα να επιλεγεί ξανά.
-    alts = allIngredients().filter(i => i.cat === 'cheese' && (i.id === origIngId || isEnabled(i.id)));
+    alts = selectableIngredients(origIngId).filter(i => i.cat === 'cheese' && (i.id === origIngId || isEnabled(i.id)));
   } else {
-    alts = allIngredients().filter(i =>
+    alts = selectableIngredients(origIngId).filter(i =>
       i.id === origIngId ? true
       : isEnabled(i.id) && ((i.group && i.group === orig.group) || (i.custom && i.cat === orig.cat)));
   }
@@ -7695,9 +7709,9 @@ function openIngredientSubModal(origIngId, mealId, dateISO) {
   if (isCheese) {
     // Το ΑΡΧΙΚΟ τυρί του προγράμματος μπαίνει πάντα στη λίστα — ακόμη κι αν είναι
     // απενεργοποιημένο στα φίλτρα — ώστε να μπορεί πάντα να επιλεγεί ξανά.
-    alts = allIngredients().filter(i => i.cat === 'cheese' && (i.id === origIngId || isEnabled(i.id)));
+    alts = selectableIngredients(origIngId).filter(i => i.cat === 'cheese' && (i.id === origIngId || isEnabled(i.id)));
   } else {
-    alts = allIngredients().filter(i =>
+    alts = selectableIngredients(origIngId).filter(i =>
       i.id === origIngId ? true
       : isEnabled(i.id) && ((i.group && i.group === orig.group) || (i.custom && i.cat === orig.cat))
     );
