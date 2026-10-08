@@ -2293,9 +2293,9 @@ const DAY_NAMES = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη'
 const DAY_SHORT = ['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
 // Όλα τα πιθανά μπλοκ εναλλακτικών ενός γεύματος, με σειρά εμφάνισης.
 // Προσθήκη νέου: αρκεί ένα ακόμη κλειδί εδώ.
-// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-10-08 10:27 · 295abdcd με ημερομηνία και
+// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-10-08 10:49 · 988ff0e3 με ημερομηνία και
 // σύντομο αποτύπωμα σε κάθε ανάρτηση, ώστε κάθε συσκευή να δηλώνει τι τρέχει.
-const APP_BUILD = '2026-10-08 10:27 · 295abdcd';
+const APP_BUILD = '2026-10-08 10:49 · 988ff0e3';
 
 const ALT_KEYS = ['alt', 'alt2', 'alt3', 'altBreakfast', 'altDinner'];
 
@@ -3230,11 +3230,22 @@ function loadState() {
   // πλέον στα μενού του Θωμά. Αναιρεί ακριβώς το λάθος της _newIngsHidden_v1 —
   // δεν αγγίζει τίποτε που έκρυψε ο ίδιος ο χρήστης.
   try {
-    if (st.profiles && st.profiles.thomas && !st.profiles.thomas._rxUnhidden_v1) {
+    if (st.profiles && st.profiles.thomas) {
       const RX_IDS = ['squid','cuttlefish','octopus','beef_fillet','imon_karydas','peach','apricot'];
       const _f = st.profiles.thomas.filters || (st.profiles.thomas.filters = {});
-      for (const id of RX_IDS) if (_f[id] && _f[id].enabled === false) _f[id].enabled = true;
-      st.profiles.thomas._rxUnhidden_v1 = true;
+      let _ch = false;
+      for (const id of RX_IDS) if (_f[id] && _f[id].enabled === false) { _f[id].enabled = true; _ch = true; }
+      if (_ch) {
+        // Νεότερη από ΟΠΟΙΑΔΗΠΟΤΕ τιμή του cloud, ακόμη κι αν διαφέρουν τα ρολόγια
+        // των δύο συσκευών. Αλλιώς η συγχώνευση ξαναφέρνει το «κρυμμένο».
+        const _prev = st.profiles.thomas._subsTs || 0;
+        st.profiles.thomas._subsTs = Math.max(Date.now(), _prev + 1);
+      } else {
+        // Η σημαία μπαίνει ΜΟΝΟ όταν δεν χρειάστηκε επισκευή, δηλαδή όταν η
+        // κατάσταση που ήρθε είναι ήδη σωστή. Αν τη βάζαμε νωρίτερα, θα ταξίδευε
+        // στο cloud, η άλλη συσκευή θα τη διάβαζε και θα σταματούσε να επισκευάζει.
+        st.profiles.thomas._rxUnhidden_v2 = true;
+      }
     }
   } catch(e) { console.warn('rx-unhide failed:', e); }
 
@@ -3543,7 +3554,12 @@ function _mergeChanged(st) {
 // Αν συγχρονιστούν, η άλλη συσκευή σε πετάει πίσω ενώ δουλεύεις: πατάς «χθες»,
 // φτάνει ενημέρωση από το cloud και επιστρέφεις στο σήμερα. Μοιάζει με κόλλημα.
 const _VIEW_ONLY_KEYS = [
-  'tab', 'lang', 'trackerDate', 'weekOffset', 'shopStoreFilter',
+  // πού βρίσκεσαι
+  'tab', 'selectedDay', 'selectedMealType', 'trackerDate', 'weekOffset',
+  // πώς το βλέπεις
+  'lang', 'theme', 'mealViewMode', 'shopGroupBy', 'shopNetMode',
+  'shopStoreFilter', 'forecastDays',
+  // τι είναι ανοιχτό και τι κλειστό
   'catExpanded', 'statsCatExpanded', 'shopCatCollapsed', 'stockCatCollapsed',
   'forecastCollapsed', 'forecastListCollapsed', 'dayAlertsCollapsed',
 ];
@@ -3625,11 +3641,22 @@ function _applyCloudState(cloudState) {
   // Πρέπει να τρέχει και εδώ — αλλιώς η κατάσταση του cloud ξανακρύβει όσα
   // ξεκρύψαμε τοπικά, και το φαγητό εξαφανίζεται ξανά στην επόμενη σύνδεση.
   try {
-    if (state.profiles && state.profiles.thomas && !state.profiles.thomas._rxUnhidden_v1) {
+    if (state.profiles && state.profiles.thomas) {
       const RX_IDS = ['squid','cuttlefish','octopus','beef_fillet','imon_karydas','peach','apricot'];
       const _f = state.profiles.thomas.filters || (state.profiles.thomas.filters = {});
-      for (const id of RX_IDS) if (_f[id] && _f[id].enabled === false) _f[id].enabled = true;
-      state.profiles.thomas._rxUnhidden_v1 = true;
+      let _ch = false;
+      for (const id of RX_IDS) if (_f[id] && _f[id].enabled === false) { _f[id].enabled = true; _ch = true; }
+      if (_ch) {
+        // Νεότερη από ΟΠΟΙΑΔΗΠΟΤΕ τιμή του cloud, ακόμη κι αν διαφέρουν τα ρολόγια
+        // των δύο συσκευών. Αλλιώς η συγχώνευση ξαναφέρνει το «κρυμμένο».
+        const _prev = state.profiles.thomas._subsTs || 0;
+        state.profiles.thomas._subsTs = Math.max(Date.now(), _prev + 1);
+      } else {
+        // Η σημαία μπαίνει ΜΟΝΟ όταν δεν χρειάστηκε επισκευή, δηλαδή όταν η
+        // κατάσταση που ήρθε είναι ήδη σωστή. Αν τη βάζαμε νωρίτερα, θα ταξίδευε
+        // στο cloud, η άλλη συσκευή θα τη διάβαζε και θα σταματούσε να επισκευάζει.
+        state.profiles.thomas._rxUnhidden_v2 = true;
+      }
     }
   } catch(e) { console.warn('cloud rx-unhide failed:', e); }
   const ap = state.profiles && state.profiles[state.activeProfileId];
@@ -6792,6 +6819,7 @@ function toggleFilter(id) {
   if (!state.filters[id]) state.filters[id] = {enabled:true};
   state.filters[id].enabled = !(state.filters[id].enabled !== false);
   if (state.filters[id].enabled) state.filters[id].altId = null;
+  _touchSubs();   // αλλιώς η συγχώνευση με το cloud αναιρεί την επιλογή σου
   saveState();
   render();
 }
