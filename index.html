@@ -2293,9 +2293,9 @@ const DAY_NAMES = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη'
 const DAY_SHORT = ['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
 // Όλα τα πιθανά μπλοκ εναλλακτικών ενός γεύματος, με σειρά εμφάνισης.
 // Προσθήκη νέου: αρκεί ένα ακόμη κλειδί εδώ.
-// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-10-02 12:17 · f0b53ec2 με ημερομηνία και
+// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-10-08 10:27 · 295abdcd με ημερομηνία και
 // σύντομο αποτύπωμα σε κάθε ανάρτηση, ώστε κάθε συσκευή να δηλώνει τι τρέχει.
-const APP_BUILD = '2026-10-02 12:17 · f0b53ec2';
+const APP_BUILD = '2026-10-08 10:27 · 295abdcd';
 
 const ALT_KEYS = ['alt', 'alt2', 'alt3', 'altBreakfast', 'altDinner'];
 
@@ -3225,6 +3225,19 @@ function loadState() {
       st.profiles.thomas._newIngsHidden_v1 = true;
     }
   } catch(e) { console.warn('hide-new-ings failed:', e); }
+
+  // One-shot (8 Οκτ 2026): ξεκρύβει όσα από τα 18 κρυμμένα τρόφιμα συνταγογραφούνται
+  // πλέον στα μενού του Θωμά. Αναιρεί ακριβώς το λάθος της _newIngsHidden_v1 —
+  // δεν αγγίζει τίποτε που έκρυψε ο ίδιος ο χρήστης.
+  try {
+    if (st.profiles && st.profiles.thomas && !st.profiles.thomas._rxUnhidden_v1) {
+      const RX_IDS = ['squid','cuttlefish','octopus','beef_fillet','imon_karydas','peach','apricot'];
+      const _f = st.profiles.thomas.filters || (st.profiles.thomas.filters = {});
+      for (const id of RX_IDS) if (_f[id] && _f[id].enabled === false) _f[id].enabled = true;
+      st.profiles.thomas._rxUnhidden_v1 = true;
+    }
+  } catch(e) { console.warn('rx-unhide failed:', e); }
+
   // One-shot (20 Ιουλ 2026): Θωμάς προτιμά cottage αντί για κατίκι.
   // Το πρόγραμμα κρατά κατίκι (πιστό στη συνταγή) — η εφαρμογή εμφανίζει cottage
   // με αυτόματη προσαρμογή λιπαρών (cheeseScaledGrams: +6γρ).
@@ -3525,8 +3538,25 @@ function _mergeChanged(st) {
   return !!(st.addedDays || st.mergedDays || st.addedProfiles || st.addedPurchases || st.changedSettings);
 }
 
+// Τι βλέπεις αυτή τη στιγμή στην οθόνη — ποια καρτέλα, ποια ημέρα, ποια γλώσσα,
+// τι είναι ανοιχτό και τι κλειστό. Δεν είναι δεδομένα, είναι θέση ματιού.
+// Αν συγχρονιστούν, η άλλη συσκευή σε πετάει πίσω ενώ δουλεύεις: πατάς «χθες»,
+// φτάνει ενημέρωση από το cloud και επιστρέφεις στο σήμερα. Μοιάζει με κόλλημα.
+const _VIEW_ONLY_KEYS = [
+  'tab', 'lang', 'trackerDate', 'weekOffset', 'shopStoreFilter',
+  'catExpanded', 'statsCatExpanded', 'shopCatCollapsed', 'stockCatCollapsed',
+  'forecastCollapsed', 'forecastListCollapsed', 'dayAlertsCollapsed',
+];
+
 function _applyCloudState(cloudState) {
+  // Κρατάμε ό,τι αφορά μόνο αυτή την οθόνη
+  const _view = {};
+  for (const k of _VIEW_ONLY_KEYS) if (k in state) _view[k] = state[k];
+
   for (const k of Object.keys(cloudState)) state[k] = cloudState[k];
+
+  // ...και το επαναφέρουμε αφού περάσει η κατάσταση του cloud
+  for (const k of Object.keys(_view)) state[k] = _view[k];
   // Re-run rename migration (cloud may carry legacy generic names)
   if (state.profiles) {
     if (state.profiles.user1 && (state.profiles.user1.name === 'user1' || state.profiles.user1.name === 'User 1' || state.profiles.user1.name === 'Χρήστης 1')) state.profiles.user1.name = 'Θανάσης';
@@ -3591,6 +3621,17 @@ function _applyCloudState(cloudState) {
       state.profiles.thomas._katikiToCottage_v1 = true;
     }
   } catch(e) { console.warn('cloud katiki→cottage failed:', e); }
+  // One-shot (cloud, 8 Οκτ 2026): ξεκρύβει τα συνταγογραφημένα τρόφιμα.
+  // Πρέπει να τρέχει και εδώ — αλλιώς η κατάσταση του cloud ξανακρύβει όσα
+  // ξεκρύψαμε τοπικά, και το φαγητό εξαφανίζεται ξανά στην επόμενη σύνδεση.
+  try {
+    if (state.profiles && state.profiles.thomas && !state.profiles.thomas._rxUnhidden_v1) {
+      const RX_IDS = ['squid','cuttlefish','octopus','beef_fillet','imon_karydas','peach','apricot'];
+      const _f = state.profiles.thomas.filters || (state.profiles.thomas.filters = {});
+      for (const id of RX_IDS) if (_f[id] && _f[id].enabled === false) _f[id].enabled = true;
+      state.profiles.thomas._rxUnhidden_v1 = true;
+    }
+  } catch(e) { console.warn('cloud rx-unhide failed:', e); }
   const ap = state.profiles && state.profiles[state.activeProfileId];
   if (ap) {
     state.plans = ap.plans || [];
