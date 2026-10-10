@@ -2293,9 +2293,9 @@ const DAY_NAMES = ['Δευτέρα','Τρίτη','Τετάρτη','Πέμπτη'
 const DAY_SHORT = ['Δευ','Τρι','Τετ','Πεμ','Παρ','Σαβ','Κυρ'];
 // Όλα τα πιθανά μπλοκ εναλλακτικών ενός γεύματος, με σειρά εμφάνισης.
 // Προσθήκη νέου: αρκεί ένα ακόμη κλειδί εδώ.
-// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-10-08 10:49 · 988ff0e3 με ημερομηνία και
+// Σφραγίδα έκδοσης. Το deploy.ps1 αντικαθιστά το 2026-10-10 15:57 · 82bad3a7 με ημερομηνία και
 // σύντομο αποτύπωμα σε κάθε ανάρτηση, ώστε κάθε συσκευή να δηλώνει τι τρέχει.
-const APP_BUILD = '2026-10-08 10:49 · 988ff0e3';
+const APP_BUILD = '2026-10-10 15:57 · 82bad3a7';
 
 const ALT_KEYS = ['alt', 'alt2', 'alt3', 'altBreakfast', 'altDinner'];
 
@@ -7805,11 +7805,14 @@ function openIngredientSubModal(origIngId, mealId, dateISO) {
       <div class="pct">${ingName(autoIng)}${autoNote ? ' · ' + autoNote : ''}</div></div>
     <span>${isDefault ? '✓' : ''}</span>
   </div>`;
-  // Όταν το αυτόματο καταλήγει σε άλλο τρόφιμο (π.χ. υποκατάσταση μενού), το
-  // αρχικό τρόφιμο του προγράμματος πρέπει να υπάρχει ως ξεχωριστή, ρητή επιλογή —
-  // αλλιώς δεν υπάρχει κανένας τρόπος να επιστρέψεις σε αυτό μόνο για σήμερα.
+  // Το αρχικό τρόφιμο του προγράμματος εμφανίζεται ΠΑΝΤΑ ως ξεχωριστή, ρητή
+  // επιλογή με το όνομά του. Παλιότερα εμφανιζόταν μόνο όταν το αυτόματο κατέληγε
+  // αλλού — οπότε σε γεύματα όπως «κοτόπουλο ή ψάρι» ο χρήστης έβλεπε μόνο τα
+  // ψάρια και το κοτόπουλο ήταν κρυμμένο πίσω από το «Αυτόματη επιλογή».
+  // Εξαίρεση: αν βρίσκεται ήδη στη λίστα των εναλλακτικών, δεν το διπλογράφουμε.
   const _origSel = (currentSub === origIngId) ? 'selected' : '';
-  if (autoIng.id !== orig.id) {
+  const _origInList = !!(explicitEntries && explicitEntries.some(e => e.id === origIngId));
+  if (!_origInList) {
     html += `<div class="alt-option ${_origSel}" onclick="setDailySubstitute('${dateISO}', '${mealId}', '${origIngId}', '${origIngId}')">
       <div><strong>${ingName(orig)}</strong> <span style="font-size:11px;color:var(--accent);font-weight:700">(${T('origBadge')})</span>
         ${orig.n100 ? `<div class="pct">${orig.n100[0]} kcal · ${orig.n100[2]}g protein · ${orig.n100[3]}g fat /100g</div>` : ''}
@@ -7839,8 +7842,8 @@ function openIngredientSubModal(origIngId, mealId, dateISO) {
         html += `<div class="subtle" style="margin:10px 0 4px;font-weight:600;color:var(--navy)">🧀 ${cgNames[grp] || grp}</div>`;
         for (const alt of members) {
           const isOrig = alt.id === origIngId;
-          if (isOrig && autoIng.id !== orig.id) continue;   // ήδη εμφανίστηκε πιο πάνω
-          const sel = (currentSub === alt.id || (isOrig && !currentSub && autoIng.id === orig.id)) ? 'selected' : '';
+          if (isOrig) continue;   // εμφανίζεται πάντα πιο πάνω, με το όνομά του
+          const sel = (currentSub === alt.id) ? 'selected' : '';
           const scaled = (!isOrig && origGrams) ? cheeseScaledGrams(origIngId, alt.id, origGrams) : 0;
           const badge = isOrig ? ` <span style="font-size:11px;color:var(--accent);font-weight:700">(${T('origBadge')})</span>` : '';
           html += `<div class="alt-option ${sel}" onclick="setDailySubstitute('${dateISO}', '${mealId}', '${origIngId}', '${alt.id}')">
